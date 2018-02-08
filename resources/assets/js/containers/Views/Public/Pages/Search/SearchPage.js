@@ -28,6 +28,19 @@ export class SearchPage extends React.Component {
 	componentWillMount(){
 		console.log('trying to search');
 		this.props.match.params.search && this.props.dispatch(resourcesCrudActions.search(this.props.match.params.search));
+
+		if(this.props.location.search && this.props.location.search == '?type=articles'){
+			this.props.dispatch(resourcesCrudActions.filter('type/articles'));
+			this.setState({ filter: { value: 'type', label: 'Type'}, type: {value: 'articles', label: 'Articles'} });
+		}		
+		else if(this.props.location.search && this.props.location.search == '?type=videos'){
+			this.props.dispatch(resourcesCrudActions.filter('type/videos'));
+			this.setState({ filter: { value: 'type', label: 'Type'}, type: {value: 'videos', label: 'Videos'} });
+		}		
+		else if(this.props.location.search && this.props.location.search == '?type=reviews'){
+			this.props.dispatch(resourcesCrudActions.filter('type/reviews'));
+			this.setState({ filter: { value: 'type', label: 'Type'}, type: {value: 'reviews', label: 'Reviews'} });
+		}
 	}
 
 	changeSortBy = (value) => {
@@ -53,7 +66,7 @@ export class SearchPage extends React.Component {
 	}
 
 	render(){
-		console.log('PROPS', this.props, this.state)
+		console.log('PROPS', this.props, this.state) 
 		return (
 			<div className="page search">
 				<SlideNavbarWrapper>

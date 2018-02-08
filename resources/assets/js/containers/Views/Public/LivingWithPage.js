@@ -51,13 +51,14 @@ export class LivingWithPage extends React.Component {
 					</div>
 					<ResourcesList title="Recent Articles" type="articles" records={this.props.articles.records && 
 						this.props.articles.records.filter((item)=>{
-							if(item.pages && JSON.parse(item.pages).includes('living-with') && item.status == 'published'){
+							if(item.pages != null && item.pages && JSON.parse(item.pages) && JSON.parse(item.pages).includes('living-with') && item.status == 'published'){
 								return item;
 							}
 						})} />
 					<ResourcesList title="Recent Videos" type="videos" records={this.props.videos.records && 
 						this.props.videos.records.filter((item)=>{
-							if(item.pages && JSON.parse(item.pages).includes('curious-about') && item.status == 'published'){
+							console.log('item pages', item.pages)
+							if(item.pages != null && item.pages && JSON.parse(item.pages) && JSON.parse(item.pages).includes('living-with') && item.status == 'published'){
 								return item;
 							}
 						})} />

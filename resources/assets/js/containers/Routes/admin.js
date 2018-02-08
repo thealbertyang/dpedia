@@ -39,7 +39,7 @@ export class AdminRoutes extends React.Component {
 	}
 
 	render(){
-		console.log('ADMIN ROuTE PROPS', this.props)
+		//console.log('ADMIN ROuTE PROPS', this.props)
 		return (
 			<Switch>
 
@@ -77,9 +77,9 @@ export class AdminRoutes extends React.Component {
 				<Route path={`${this.props.match.url}/pages/create`} exact component={PagesCreatePage} />
 				<Route path={`${this.props.match.url}/pages/:id/edit`} exact component={PagesUpdatePage} />
 
-				<Route path={`${this.props.match.url}/experts`} exact component={ExpertsPage} />
-				<Route path={`${this.props.match.url}/experts/create`} exact component={ExpertsCreatePage} />
-				<Route path={`${this.props.match.url}/experts/:id/edit`} exact component={ExpertsUpdatePage} />
+				{this.props.auth && (this.props.auth.role == 'admin' || this.props.auth.role == 'expert') && <Route path={`${this.props.match.url}/experts`} exact component={ExpertsPage} />}
+				{this.props.auth && (this.props.auth.role == 'admin' || this.props.auth.role == 'expert') && <Route path={`${this.props.match.url}/experts/create`} exact component={ExpertsCreatePage} />}
+				{this.props.auth && (this.props.auth.role == 'admin' || this.props.auth.role == 'expert') && <Route path={`${this.props.match.url}/experts/:id/edit`} exact component={ExpertsUpdatePage} />}
 			</Switch>
 		);	
 	}

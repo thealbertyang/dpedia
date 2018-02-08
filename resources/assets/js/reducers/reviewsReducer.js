@@ -33,6 +33,20 @@ export default function reviewsReducer(state = {
 			console.log('what', reducerName);
 			state = {...state, busy: false, status: 'search_resource_error' }
 			break;
+		}			
+		case reducerName+"_FILTER": {
+			state = {...state, busy: true, status: 'searching_resource' }
+			break;
+		}
+		case reducerName+"_FILTER_SUCCESS": {
+			console.log('success search')
+			state = {...state, busy: false, status: 'filter_resources_success', records: action.payload, results: {...state.results, to: action.to, from: action.from, total: action.total, current: action.current, prev_url: action.prev_url, next_url: action.next_url} }
+			break;
+		}
+		case reducerName+"_FILTER_ERROR": {
+			console.log('what', reducerName);
+			state = {...state, busy: false, status: 'filter_resource_error' }
+			break;
 		}		
 		case reducerName+"_FETCH": {
 			state = {...state, busy: true, status: 'fetching_resource' }
@@ -72,9 +86,9 @@ export default function reviewsReducer(state = {
 			state = {...state, busy: false, related: action.payload, status: 'fetch_resource_related_success'}
 			break;
 		}
-		case reducerName+"_FETCH_ERROR": {
+		case reducerName+"_FETCH_RELATED_ERROR": {
 			console.log('what', reducerName);
-			state = {...state, busy: false, status: 'fetch_resource_error' }
+			state = {...state, busy: false, status: 'fetch_resource_related_error' }
 			break;
 		}
 		case reducerName+"_DELETE": {

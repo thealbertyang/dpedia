@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
 
         $expertData = [
             'about' => 'This is an about description.',
-            'highlights' => 'This is highlights.',
+            'highlights' => '<ul><li>This is highlights.</li><li>This is highlights</li></ul>',
             'occupation' => 'Cardiologist',
             'credentials' => 'MD',
             'affiliations' => json_encode(['Web MD', 'Hospital']),

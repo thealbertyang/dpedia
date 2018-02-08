@@ -16,7 +16,7 @@ class ResourcesTableSeeder extends Seeder
      * @return void
      */
     public function run(Faker $faker)
-    {
+    { 
 
         $id = $id = DB::table('resources')->insertGetId(
         [
@@ -171,7 +171,7 @@ class ResourcesTableSeeder extends Seeder
             'url' => 'https://bg-monitor.com/',
             'ios_url' => '',
             'google_url' => 'https://play.google.com/store/apps/details?id=com.wonggordon.bgmonitor',
-            'ios_rating' => '',
+            'ios_rating' => null,
             'google_rating' => '4.4',
             'icon_img' => 'uploads/images/icons/Icon_BGMonitor_200x200.png',
             'sponsored' => (bool)random_int(0, 1),
@@ -216,7 +216,7 @@ class ResourcesTableSeeder extends Seeder
             'url' => 'http://www.glucoracle.com/',
             'ios_url' => 'https://itunes.apple.com/us/app/glucoracle/id1190124199?mt=8',
             'google_url' => 'https://play.google.com/store/apps/details?id=coop.sassafras.glucoracle&hl=en',
-            'ios_rating' => '',
+            'ios_rating' => null,
             'google_rating' => '4',
             'icon_img' => 'uploads/images/icons/Icon_GlucOracle_200x200.png',
             'sponsored' => (bool)random_int(0, 1),

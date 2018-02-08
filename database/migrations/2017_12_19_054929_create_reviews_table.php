@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->string('icon_img')->nullable();
             $table->string('url')->nullable();
-            $table->text('body')->nullable();
+            $table->longText('body')->nullable();
             $table->string('ios_url')->nullable();
             $table->string('google_url')->nullable();
             $table->decimal('ios_rating', 2, 1)->nullable();

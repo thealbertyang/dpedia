@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600,700, 900|Montserrat:300,400,500,600,700,900|Lato:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600,700,900|Montserrat:300,400,500,600,700,900|Lato:300,400,600");
 
 // Icons
 @import url("https://use.fontawesome.com/releases/v5.0.2/css/all.css");
@@ -17,7 +17,7 @@
 //General Overwrite
 html, body{
 	height: 100%;
-	font-family: Roboto;
+	font-family: 'Roboto', san-serif;
 	font-size: 0.9rem;
 }
 
@@ -58,22 +58,57 @@ a {
 }
 
 .btn-primary {
-	background-color: $primary-link-color;
+	background-color: $primary-button-color;
 	color: white;
 
-	&:hover {
-		background-color: $primary-link-hover-color;
+	&:hover, &:active, &:focus, &.active {
+		background-color: $primary-button-hover-color !important;
 	}
+}
+
+.btn-royal-blue {
+	background-color: #475381;
+
+	&:hover, &:active, &:focus {
+		background-color: #36416e !important;
+    }
+}
+
+.btn-grey {
+	background-color: #48494b;
+	color: white !important;
+
+	&:hover {
+		background-color: #343435
+	}
+}
+
+.btn-square {
+	height: auto;
+	border-radius: 3px;
+	margin: 0;
+	font-size: 1.05rem;
+	font-family: $secondary-font-family;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+
+    &:hover, &:active, &:focus, &.active {
+		box-shadow: none !important;
+    }
 }
 
 .btn-round {
 	height: auto;
 	border-radius: 2rem;
 	margin: 0;
-	font-size: 0.9rem;
-	font-family: Montserrat;
+	font-size: 1.05rem;
+	font-family: $secondary-font-family;
     font-weight: 500;
     padding: 0.6rem 1rem;
+
+    &:hover, &:active, &:focus, &.active {
+		box-shadow: none !important;
+    }
 }
 
 .btn-resource {
@@ -88,7 +123,9 @@ a {
 	margin-left: 1rem;
 	font-size: .85rem;
     text-transform: uppercase;
-    border: 4px solid #ffab93;
+    background-color: #475382;
+    //border: 4px solid #4095ff;
+    border: 4px solid #3e486d;
     min-width: 300px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -96,24 +133,51 @@ a {
     z-index: 1;
     cursor: pointer;
 
+    //background-color: white;
+    //color: #475382;
+    //border: 0px;
+
     &:hover, &:active, &:focus {
     	color: white;
-    	border: 4px solid #ffab93;
+    	background-color: #36416e;
+    	border: 4px solid #3d5e88;
     }
 }
 
+
+.cta {
+	.btn-cta {
+	    background-color: white;
+	    color: #475382;
+	    border: 0px;
+
+	    &:hover, &:active, &:focus {
+	    	color: white;
+	    	background-color: #36416e;
+	    	border: 4px solid #56a1ff;
+	    }
+	}
+}
+
 .see-more {
-    border-radius: 3px;
-    background-color: #e2e9f4;
-    color: #60667b;
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.4rem 2rem;
+    //background-color: #e2e9f4;
+    //color: #60667b;
+    //background-color: #505050;
+    //color: #ffffff;
+    //font-size: 0.9rem;
+    //font-weight: 500;
+    padding: 0.6rem 3rem;
 
     &:hover {
     	text-decoration: none;
-    	color: $primary-font-color;
+    	color: white;
     }
+}
+
+.see-all {
+	font-weight: 300;
+    //font-size: 0.9rem;
+    color: #5aa0ff;
 }
 
 .social {
@@ -141,7 +205,7 @@ h1 {
 }
 
 .heading-sub {
-	font-family: Roboto;
+	font-family: 'Roboto', san-serif;
 	color: $secondary-font-color;
 	font-weight: 300;
 }
@@ -214,9 +278,11 @@ h1 {
 	    	margin: 0;
 
 	    	.nav-link {
+	    		font-family: 'Roboto', san-serif;
 	    		padding-left: 20px;
 	    		height: 4rem;
-	    		color: $primary-font-color;
+	    		//color: $primary-font-color;
+	    		color: #21242f;
 	    		font-size: 14px;
 
 	    		&.active {
@@ -255,10 +321,10 @@ h1 {
 	    transition: transform 0.25s ease, -webkit-transform 0.25s ease;
 	    backface-visibility: hidden;
 	    transform: translate(0, 0);
-		margin-top: 73px;
+		margin-top: 6rem;
 
-	    @include make-row();
-	    @extend .no-gutters;
+	    //@include make-row();
+	    //@extend .no-gutters;
 	    
 	    &.isActive {
 	    	transform: translateX(-250px);
@@ -289,9 +355,14 @@ h1 {
 		}
 	}
 
+	.logo {
+		height: 1.3rem;
+	}
+
 	.navbar-brand {
 	    padding-top: 0.3rem;
     	padding-bottom: 0.3rem;
+		border-right: none !important;
 	}
 
 	.search-group {
@@ -326,7 +397,7 @@ h1 {
 	.slogan {
 		color: #3F4970;
 		font-family: Roboto;
-		font-size: 11px;
+		font-size: 20px;
 
 		sup {
 			color: #3F4970;
@@ -336,14 +407,25 @@ h1 {
 		}
 	}
 
+	.navbar-nav {
+		li:last-child {
+    		//background-color: black;
+    		.nav-link {
+    			border-right: none;
+    		}
+	    }
+	}
+
 	.nav-link {
-			height: 5rem;
+			height: 6rem;
 		    display: flex;
 		    align-items: center;
 		    color: $primary-font-color;
-		    font-size: 14px;
+		    font-size: 16px;
 			padding-right: 1rem !important;
 		    padding-left: 1rem !important;
+			border-right: 1px solid #dcdcdc;
+
 
 			&.active {
 				border-bottom: 5px solid #7ba7db;
@@ -375,28 +457,122 @@ h1 {
 //Hero
 .hero {
 	width: 100%;
-	background-color: #3F4970;
+	background-color: #7ca9d9;
+}
+
+.hero-loading {
+	height: 40rem;
+	animation: fadein 1s;
+	z-index: 1;
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	right: 0;
+	
+	&:before {
+	    content: url('/img/loader.png');
+	    z-index: 1000;
+	    height: 40rem;
+	    width: 100%;
+	    display: flex;
+	    flex: 1 1;
+	    align-items: center;
+	    justify-content: center;
+	    animation: rotating 1s linear infinite;
+	}
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .embed-responsive {
 	background-color: #000000;
+	max-height: 40rem;
 }
+
+
 
 .hero-playlist {
 	width: 100%;
 	background-color: #000;
 	padding: 0 !important;
+	animation: fadein 1s;
+	z-index: 2;
+	border-bottom: 1px solid #bdccde;
 
-			@media(max-width: 992px){
-		height: 15rem;
+	@media(max-width: 992px){
+		.screen-panel {
+			border-bottom: 1px solid #bdccde;
+		}
+	}
+
+	&.hero-playlist-single {
+		.description-card {
+			margin: 3rem !important;
+		}
+	}
+
+	.screen-panel {
+		padding: 0;
 	}
 
 	.description-panel {
-		width: 100%;
+		background-color: #ffffff70;
+		flex: 1 1;
+		height: 100%;
+		padding: 5rem;
+
+		.btn {
+			padding: 0.6rem 2rem;
+		}
+
+		.fa-play-circle {
+			font-size: 1rem;
+		    font-weight: 100;
+		    margin-right: 0.25rem;
+		}
+
+		.title {
+			color: #3a3a3a;
+			font-size: 4rem;
+			width: 35rem;
+			font-weight: 400;
+			line-height: 5rem;
+			margin-bottom: 2rem;
+		}
+
+		.description {
+			color: white;
+			font-weight: 100;
+			padding-bottom: 1rem;
+		}
+
+		.highlight {
+			color: #48494b; 
+		}
+	}
+
+	.description-card {
+		width: 45rem;
 		margin: 5rem !important;
-		background-color: #282f48;
+		background-color: #7ca9d9;
 		color: white;
+		box-shadow: 1px 1px 0.2rem rgba(68, 80, 93, 0.52);
+		border: 1px solid rgb(77, 131, 187);
+
 		@extend .p-4; 
+
+		.btn {
+			padding: 0.6rem 2rem;
+		}
+
+		.fa-play-circle {
+			font-size: 1rem;
+		    font-weight: 100;
+		    margin-right: 0.25rem;
+		}
 
 		.card-title {
 			color: white;
@@ -407,6 +583,14 @@ h1 {
 			font-weight: 100;
 			padding-bottom: 1rem;
 		}
+
+		.highlight {
+			color: #48494b; 
+		}
+	}
+
+	.screen-panel {
+
 	}
 
 	.playlist-panel {
@@ -414,36 +598,113 @@ h1 {
 		padding: 0;
     	border-left: 1px solid #bdcdde;
 
+    	@media(max-width: 992px){
+    		border-left: none;
+    	}
+
 		.avatar {
 			margin-bottom: 0;
 		}
 
 		.panel-top {
-			@extend .p-4; 
+			padding: 2.5rem 1.5rem !important;
 
+			.heading {
+				font-size: 2rem;
+				margin-bottom: 1rem;
+			}
 
+			.col-3.tags {
+				margin-bottom: 0;
+
+				.tag-item {
+					font-size: 1.05rem;
+				}
+			}
+
+			.expert-info {
+				padding-bottom: 1.5rem !important;
+
+				.avatar {
+					width: 3rem;
+					height: 3rem;
+					border: none;
+					margin-right: 0.5rem
+				}
+
+				.highlight {
+					font-size: 1.2rem;
+					margin-left: 0.5rem;
+				}
+			}
+		}
+
+		.panel-items-container {
+			max-height: 30rem;
+			overflow-y: scroll;
+
+			/* width */
+			&::-webkit-scrollbar {
+			    width: 10px;
+			}
+
+			/* Track */
+			&::-webkit-scrollbar-track {
+			    background: #f1f1f1; 
+			}
+
+			/* Handle */
+			&::-webkit-scrollbar-thumb {
+			    background: #888; 
+			}
+
+			/* Handle on hover */
+			&::-webkit-scrollbar-thumb:hover {
+			    background: #555; 
+			}
 		}
 
 		.panel-item {
 			border-top: 1px solid #dfe7ef;
 			
 			.row {
-				padding: .5rem 0;
+				padding: 0.5rem 0;
 				margin: 0;
 
 				&:hover {
 					background-color: #dfe7ef;
 					text-decoration: none;
+
+					.now-playing {
+						color: #000;
+					}
+				}
+			}
+
+			.see-profile {
+				font-size: 1rem;
+			}
+
+			.heading-small {
+				font-size: 1.15rem;
+			}
+
+			.expert-info {
+				.avatar {
+					width: 2rem;
+					height: 2rem;
+					border: none;
+					margin-right: 0.5rem
+				}
+
+				.highlight {
+					font-size: 1rem;
+					margin-left: 0.25rem;
 				}
 			}
 		}
 
-		.avatar {
-			width: 2rem;
-			height: 2rem;
-			border: none;
-			margin-right: 0.5rem
-		}
+
 
 		.panel-item-active {
 			background-color: #282f48;
@@ -532,37 +793,36 @@ h1 {
 	}
 }
 
-//Pages
-.page {
-	@extend .d-flex;
-	@extend .flex-column; 
-    flex: 1 1;
-
-	.body {
-		@extend .d-flex;
-		@extend .flex-column; 
-		flex: 1 1;
-	}
-
-	.side-container {
-	    background-color: #3F4970;
-	    z-index: 1;
-	    border-right: 1px solid #bdccde;
-	    padding: 2rem 1.5rem;
-    }
-}
-
 //Section
 .section {
-	@extend .p-5;
+	padding: 3rem;
 	display: block;
 
 	&.pb-0 {
 		padding-bottom: 0 !important;
 	}
 
+	&.py-0 {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}	
+
+	&.py-2 {
+		padding-top: 2rem !important;
+		padding-bottom: 2rem !important;
+	}
+
 	p {
 		color: #3f4970;
+	}
+}
+
+.section-main {
+	.heading {
+		font-size: 3rem;
+	}
+	.heading-sub {
+		font-size: 1.5rem;
 	}
 }
 
@@ -578,7 +838,64 @@ h1 {
 	}
 }
 
-//Home Page
+.section-resources, .page.search, .page.reviews {
+	.card {
+		.btn {
+			max-width: 100%;
+    		width: 15rem;
+    		align-self: center !important;
+		}
+		.card-text {
+			min-height: 70px;
+		    max-height: 70px;
+		    overflow: hidden;
+		    font-size: 1.05rem;
+		}
+	}
+}
+
+.section-resources {
+	.card {
+		.card-img-top {
+			height: 15rem;
+		}
+	}
+}
+
+//Pages
+.page {
+	@extend .d-flex;
+	@extend .flex-column; 
+    flex: 1 1;
+
+	.body {
+		@extend .d-flex;
+		@extend .flex-column; 
+		flex: 1 1;
+	}
+
+	.side-container {
+	    //background-color: #3F4970;
+	    background-color: #f2f5f9;
+	    z-index: 1;
+	    border-right: 1px solid #bdccde;
+	    padding: 2rem 1.5rem;
+    }
+}
+
+.articles, .videos, .video, .reviews, .expert {
+	.tags .tag-item {
+		background-color: #e2e9f4;
+	}
+}
+
+.articles, .videos, .reviews, .expert {
+	.avatar {
+		margin-top: -7rem;
+	}
+}
+
+//Reviews Page
 .reviews {
     .mobile-btn {
     	display: none;
@@ -617,6 +934,18 @@ h1 {
     display: flex;
     justify-content: flex-start;
     align-content: center;
+
+    .row {
+		width: 100%;
+		flex: 1 1;
+
+		.col-md-12 {
+		    .heading {
+		    	border-bottom: 1px solid #d8d8d8;
+				padding-bottom: 1rem;
+		    }
+		}
+	}
 
 	    @media(max-width:992px){
 	    align-items: center;
@@ -696,8 +1025,8 @@ h1 {
 
 				span {
 					line-height: 1.3rem;
-					font-size: 0.9rem;
-					color: #fff;
+					font-size: 1rem;
+					color: #212121;
 				}
 			}
 
@@ -716,21 +1045,19 @@ h1 {
 	    align-content: center;
 	    right: 0;
 
-	    	&.loading {
-				
-
-				&:before {
-				    content: url('/img/loader.png');
-				    z-index: 1000;
-				    height: 100vh;
-				    width: 100%;
-				    display: flex;
-				    flex: 1 1;
-				    align-items: center;
-				    justify-content: center;
-				    animation: rotating 1s linear infinite;
-				}
+    	&.loading {
+			&:before {
+			    content: url('/img/loader.png');
+			    z-index: 1000;
+			    height: 100vh;
+			    width: 100%;
+			    display: flex;
+			    flex: 1 1;
+			    align-items: center;
+			    justify-content: center;
+			    animation: rotating 1s linear infinite;
 			}
+		}
 	}
 
 	.main__container {
@@ -837,15 +1164,20 @@ h1 {
 	}
 
 	.btn {
-		text-transform: uppercase;
+		//text-transform: uppercase;
 		font-family: $secondary-font-family;
 		font-weight: 600;
-		height: 2.6rem;
+	    height: 3.5rem;
 		border-top-right-radius: 15rem;
 	    border-bottom-right-radius: 15rem;
 	    padding-right: 2rem;
     	padding-left: 2rem;
     	width:20%;
+    	background-color: #475382;
+
+    	&:hover {
+    		background-color: #36416e !important; 
+    	}
 
 		@media (max-width: 992px){
 			margin-left: 0;
@@ -860,7 +1192,9 @@ h1 {
 		input {
 			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 			border: 2px solid #7ba7db;
-    		height: 2.6rem;
+			border-right: 0;
+    		height: 3.5rem;
+    		font-size: 1.2rem;
     		padding-left: 2rem;
 			border-top-left-radius: 15rem;
 		    border-bottom-left-radius: 15rem;
@@ -893,6 +1227,7 @@ h1 {
 		    	list-style: none;
 		    	margin: 0;
 		    	padding: 0;
+		    	width: 100%;
 
 		    	li {
 		    		font-size: 1rem;
@@ -919,15 +1254,15 @@ h1 {
 }
 
 //Articles Page
-.articles, .videos, .video, .reviews, .expert {
-	.tags .tag-item {
-		background-color: #e2e9f4;
+.articles {
+	.hero {
+		height: 15rem;
+		
 	}
-}
-
-.articles, .videos, .reviews, .expert {
-	.avatar {
-		margin-top: -7rem;
+	.article-body {
+		img {
+			width: 100%;
+		}		
 	}
 }
 
@@ -975,6 +1310,19 @@ h1 {
 .experts {
 	.experts-panel {
 		@extend .py-4;
+	}
+	.highlights {
+		margin-bottom: 0px;
+
+		ul {
+			margin-bottom: 0px;
+			margin-left: 1.2rem;
+    		padding: 0;
+		}
+	}
+	.avatar {
+		height: 8rem;
+    	width: 8rem;
 	}
 }
 
@@ -1337,9 +1685,9 @@ h1 {
 			background-color: #f2f5f9;
 		    border-radius: 3px;
 		    padding: 0.1rem 0.4rem;
-		    font-size: 0.7rem;
+		    font-size: 0.9rem;
 		    display: inline-block;
-		    margin: 0.25rem 0.25rem 0 0;
+		    margin: 0.5rem 0.5rem 0 0;
 
 		    &.sponsored {
 		    	background-color: #fff;
@@ -1366,7 +1714,7 @@ h1 {
 }
 
 .card-img-top {
-    height: 8rem;
+	height: 8rem;
 }
 
 .card-body {
@@ -1374,7 +1722,10 @@ h1 {
 }
 
 .card-title {
-
+	min-height: 40px;
+	max-height: 40px;
+	overflow: hidden;
+	margin-bottom: 0.5rem;
 }
 
 .card-text {
@@ -1386,6 +1737,15 @@ h1 {
 
 //Card review
 .card-review {
+	.card-text {
+
+	}
+
+	.card-title {
+		min-height: 20px;
+		max-height: 20px;
+	}
+
 	.icon {
 		margin-bottom: 1rem;
 	}
@@ -1394,18 +1754,24 @@ h1 {
 		font-size: 0.7rem;
     	font-weight: 700;
 	}
+
+	.btn-review {
+		border-radius: 3px;
+	}
 }
 
 //TAGS
 .tags {
 margin-bottom: 1rem;
 padding: 0;
+font-family: 'Roboto', san-serif;
 
 	.tag-item, .tag-text {
 		color: #565656;
 	    border-radius: 3px;
-	    padding: 0.1rem 0.4rem;
-	    font-size: 0.7rem;
+	    padding: 0.25rem 0.4rem;
+	    //font-size: 0.7rem;
+	    font-size: 0.85rem;
 	    display: inline-block;
 	    margin: 0.25rem 0.25rem 0 0;
 	}

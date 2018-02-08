@@ -9,7 +9,7 @@ import { Form, Field, reduxForm, SubmissionError } from 'redux-form'
 import { Redirect, Link } from 'react-router-dom'
 
 import { IndexCreateEditContainer } from '../IndexCreateEditContainer'
-import { imageUploadField, inputField, selectableField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
+import { imageUploadField, inputField, textareaField, selectableBooleanField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
 
 const tagsFormat = value => {
 	if(!value){
@@ -114,14 +114,14 @@ export class VideosCreateEditPage extends React.Component {
 								</div>
 						 		<div className="form-group row">
 								  	<div className="col-sm-12">
-										<Field name="description" component={inputField} label="Description" errors={this.props.errors && this.props.errors.description} />
+										<Field name="description" component={textareaField} label="Description" errors={this.props.errors && this.props.errors.description} />
 								  	</div>
 								</div>
 								<div className="form-group row">
 								  	<div className="col-sm-12">
 										<Field name="tags" component={tagsField} label="Tags" options={this.props.tags.records && this.props.tags.records.map((result)=>{ return { 'value': result.id, 'label': result.title } })} errors={this.props.errors && this.props.errors.tags} />
 								  	</div>
-								</div>
+								</div> 
 						</div>
 					</div>
 				</div>
@@ -134,7 +134,7 @@ export class VideosCreateEditPage extends React.Component {
 					    <div className="card-body">
 					    	<div className="form-group row">
 							  	<div className="col-12">
-					    			<Field name="status" component={selectableField} 
+					    			<Field name="status" component={selectableBooleanField} 
 										    options={[{'value':'draft','label':'Draft'},{'value':'published','label':'Published'}]} label="Status" errors={this.props.errors && this.props.errors.status} clearable={false} />
 								</div>
 							</div>

@@ -143,6 +143,7 @@ export class FilterSidebar extends React.Component {
 	render(){
 		return (
 			<div className={`col-md-12 ${this.props.isActive === true && 'isActive'}`}>
+				<h6 className="heading">Discover</h6>
 				<ul className="filter">
 					<li>
 						<label className="custom-control custom-checkbox">

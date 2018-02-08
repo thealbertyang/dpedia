@@ -37,7 +37,7 @@ export class ResourcesList extends React.Component {
 
 	render(){
 		//console.log(this.props);
-		if(this.props.records && this.props.category_records){
+		if(this.props.records){
 
 			let resources;
 			if(this.props.type !== 'reviews'){
@@ -48,17 +48,18 @@ export class ResourcesList extends React.Component {
 			}
 
 			return (
-				<div className="section">
+				<div className="section-resources section">
 					<div className={`${(this.props.container && this.props.container == 'regular') ? 'container' : 'container-fluid'}`}>
 						<div className="row text-center">
 							<div className="col">
-								<h3 className="heading">{this.props.header}</h3>
+								<h2 className="heading">{this.props.header}</h2>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col-12">
-								<h6 className="heading">{this.props.title} <span className="heading-sub h6 highlight">({this.props.records && this.props.records.length})</span></h6>
-								<hr/>
+								<h5 className="heading">{this.props.title} <span className="heading-sub h5 highlight">({this.props.records && this.props.records.length})</span> <a href={`/search?type=${this.props.type}`} className="see-all h6">See All Recent {this.props.type == 'articles' && 'Articles'} {this.props.type == 'videos' && 'Videos'} {this.props.type == 'reviews' && 'Reviews'}</a></h5> 
+								{this.props.type == 'reviews' && <hr className="mb-4" />}
+								{this.props.type !== 'reviews' && <hr />}
 								<div className="row">
 									{resources && resources.map((item, index)=>{
 
@@ -74,7 +75,7 @@ export class ResourcesList extends React.Component {
 									})}
 									{resources && resources.length > this.state.count && 
 										<div className="col-md-12 mx-auto mt-4 text-center">
-											<a href="#" className="see-more" onClick={(e)=>this.seeMore(e)}>See more...</a>
+											<a href="#" className="see-more btn btn-square btn-grey" onClick={(e)=>this.seeMore(e)}>See more &nbsp; &nbsp;<i className="fa fa-play"></i></a>
 										</div>
 									}
 								</div>									

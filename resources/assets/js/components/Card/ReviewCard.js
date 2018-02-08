@@ -1,5 +1,6 @@
 import React from 'react'
 import * as htmlToText from 'html-to-text'
+import Pluralize from 'pluralize'
 
 export default class ReviewCard extends React.Component {
 
@@ -8,7 +9,7 @@ export default class ReviewCard extends React.Component {
 	}
 
 	htmlToText = (html) => {
-		return htmlToText.fromString(this.props.body);
+		return htmlToText.fromString(html);
 	}
 
 	truncate = (text, limit) => {
@@ -16,29 +17,48 @@ export default class ReviewCard extends React.Component {
 	}
 
 	render(){
-		let bodyText = this.htmlToText(this.props.body).substring(0,150)+'...';
+		//console.log('REVIEW CARD PROPS', this.props);
+		let bodyText, iconImg, tags, categoryTitle;
+
+		if(this.props.reviews_category && this.props.reviews_category.title == 'Clinical Trials'){
+			categoryTitle = 'Trials';
+		}
+		else {
+			categoryTitle = this.props.reviews_category.title;
+		}
+
+		if(this.props.resourceable && this.props.resourceable.body){
+			bodyText = this.htmlToText(this.props.resourceable.body).substring(0,150)+'...';
+			iconImg = this.props.resourceable.icon_img;
+			tags = this.props.resourceable.tags;
+		}
+		else if(this.props.body){
+			bodyText = this.htmlToText(this.props.body).substring(0,150)+'...';
+			iconImg = this.props.icon_img;
+			tags = this.props.tags;
+		}
 
 		if(this.props.layout == 'split'){
 			return (
 				<div className="card card-review">
 					<div className="card-body">
 						<div className='icon'>
-							<img src={`/${this.props.icon_img}`} className="icon__img"/>
+							<img src={`/${iconImg}`} className="icon__img"/>
 						</div>
-						<div className="tags col-12 text-right">
+						<div className="tags float-right text-right full-width">
 							<span className="tag-item">{this.props.reviews_category && this.props.reviews_category.title}</span>
 							<span className="tag-text">{this.props.sponsored && 'Sponsored'}</span>
 						</div>
 
-						<h6 className="card-title"><a href={`/reviews/${this.props.slug}`}><b>{this.props.title}</b></a></h6>
+						<h5 className="card-title"><a href={`/reviews/${this.props.slug}`}><b>{this.props.title}</b></a></h5>
 						<p className="card-text" dangerouslySetInnerHTML={{ __html: `${bodyText}` }}></p>
 
-						<div className="links row"> 
-							<div className="col-6">
-								<a href={this.props.url} target="_blank">See this website <i className="fa fa-external-link" aria-hidden="true"></i></a>
+						<div className="links row no-gutters full-width"> 
+							<div className="col-12 mb-2">
+								<a href={`/reviews/${this.props.slug}`} className="btn btn-primary btn-round btn-royal-blue btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> Full Review</a>
 							</div>
-							<div className="col-6">
-								<a href={`/reviews/${this.props.slug}`} className="text-primary">Full Review</a>
+							<div className="col-12">
+								<a href={`${this.props.url}`} target="_blank" className="btn btn-primary btn-round btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> View {this.props.reviews_category && Pluralize.singular(this.props.reviews_category.title)}</a>
 							</div>
 						</div>
 						
@@ -51,21 +71,28 @@ export default class ReviewCard extends React.Component {
 				<div className="card card-review">
 					<div className="card-body">
 						<div className='icon'>
-							<img src={`/${this.props.icon_img}`} className="icon__img"/>
+							<img src={`/${iconImg}`} className="icon__img"/>
 						</div>
-						<div className="tags col-12 text-right">
+						<div className="tags float-right text-right full-width">
 							<span className="tag-item">{this.props.reviews_category && this.props.reviews_category.title}</span>
 							<span className="tag-text">{this.props.sponsored && 'Sponsored'}</span>
 						</div>
 
-						<h6 className="card-title"><a href={`/reviews/${this.props.slug}`}><b>{this.props.title}</b></a></h6>
+						<h5 className="card-title"><a href={`/reviews/${this.props.slug}`}><b>{this.props.title}</b></a></h5>
 						<p className="card-text" dangerouslySetInnerHTML={{ __html: `${bodyText}` }}></p>
-						<p className="review"><a href={`/reviews/${this.props.slug}`}>Full Review</a></p>
-						{this.props.tags && <div className="tags">
-							{this.props.tags.map((item, index)=><span className="tag__item" key={index}>{item.title}</span>)}
+						{tags && <div className="tags">
+							{tags.map((item, index)=><span className="tag__item" key={index}>{item.title}</span>)}
 						</div>}
 
-						<a href={`/reviews/${this.props.slug}`} className="btn btn-primary btn-round full-width"><i className="fa fa-file-text-o" aria-hidden="true"></i> Read Review</a>
+						<div className="row">
+							<div className="col-6 pr-3">
+								<a href={`/reviews/${this.props.slug}`} className="btn btn-primary btn-round btn-royal-blue btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> Full Review</a>
+							</div>
+							<div className="col-6 pl-3">
+								<a href={`${this.props.url}`} target="_blank" className="btn btn-primary btn-round btn-review">
+									<i className="fa fa-file-text-o" aria-hidden="true"></i> View {this.props.reviews_category && Pluralize.singular(categoryTitle)}</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			);

@@ -34,6 +34,7 @@ class Resource extends Model
         
     ];
 
+
     public function getIndexDocumentData()
     {
         $results = $this->resourceable;

@@ -16,7 +16,7 @@ class CreateExpertsTable extends Migration
         Schema::create('experts', function (Blueprint $table) {
             $table->increments('id');
             $table->text('about')->nullable();
-            $table->string('highlights')->nullable();
+            $table->longText('highlights')->nullable();
             $table->string('occupation')->nullable();
             $table->string('credentials')->nullable();
             $table->string('affiliations')->nullable();

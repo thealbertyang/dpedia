@@ -49,9 +49,9 @@ export class ExpertsSinglePage extends React.Component {
 									<h6 className="heading">About</h6>
 									<p>{this.props.experts.data.about}</p>
 								</div>
-								<div className="col-4">
+								<div className="col-4"> 
 									<h6 className="heading">Highlights</h6>
-									<p>{this.props.experts.data.highlights}</p>
+									<p dangerouslySetInnerHTML={{ __html: `${this.props.experts.data.highlights}` }}></p>
 								</div>
 							</div>
 						</div>

@@ -46,6 +46,7 @@
     "html-to-text": "^3.3.0",
     "loadash": "^1.0.0",
     "node-sass": "^4.5.3",
+    "pluralize": "^7.0.0",
     "postcss-loader": "^2.0.8",
     "react": "^15.6.2",
     "react-autosuggest": "^9.3.2",

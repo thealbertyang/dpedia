@@ -30,7 +30,7 @@ class Review extends Model
         
     ];
 
-    protected $appends = ['header_img', 'slug', 'status', 'tags', 'title', 'user_id', 'expert', 'description', 'reviews_category'];
+    protected $appends = ['header_img', 'slug', 'status', 'tags', 'title', 'user_id', 'expert', 'description', 'reviews_category', 'expert_id'];
 
 
     public function getHeaderImgAttribute()
@@ -63,6 +63,13 @@ class Review extends Model
         return $this->resource()->first()->user_id;
     }
 
+    public function getExpertIdAttribute()
+    {
+        $userId = $this->resource()->first()->user_id;
+        return Expert::find(User::find($userId)->userable_id)->id;
+
+    }
+
     public function getTagsAttribute()
     {
         return $this->resource()->first()->tags;
@@ -89,6 +96,7 @@ class Review extends Model
             'body' => $this->body,
             'tags'  => $this->tags,
             'pages' => $this->pages,
+            'icon_img' => $this->icon_img,
             'status' => $this->status,
             'reviews_category_id' => $this->reviews_category_id,
         );

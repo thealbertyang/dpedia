@@ -130,11 +130,11 @@ class ExpertsCreateUpdateForm extends React.Component {
 						        		<Field name="about" component={textareaField} type="text" label="About" placeholder="About" errors={this.props.errors && this.props.errors.about} />
 						 			</div>
 						 		</div>
-								<div className="form-group row">
-									<div className="col-sm-12">
-						        		<Field name="highlights" component={textareaField} type="text" label="Highlights" placeholder="Highlights" errors={this.props.errors && this.props.errors.highlights} />
-						 			</div>
-						 		</div>
+						 		<div className="form-group row">
+							  	<div className="col-sm-12">
+										<Field name="highlights" component={editorField} label="Highlights" errors={this.props.errors && this.props.errors.highlights} />
+								  	</div>
+								</div>
 								<div className="form-group row">
 									<div className="col-sm-12">
 						        		<Field name="affiliations" component={inputField} type="text" label="Affiliations" placeholder="affiliations" errors={this.props.errors && this.props.errors.affiliations} />

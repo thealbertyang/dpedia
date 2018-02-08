@@ -9,7 +9,7 @@ import { Form, Field, reduxForm, SubmissionError } from 'redux-form'
 import { Redirect, Link } from 'react-router-dom'
 
 import { IndexCreateEditContainer } from '../IndexCreateEditContainer'
-import { imageUploadField, inputField, selectableField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
+import { imageUploadField, inputField, textareaField, selectableBooleanField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
 
 const tagsFormat = value => {
 	if(!value){
@@ -41,6 +41,7 @@ export class ArticlesCreateEditPage extends React.Component {
 				values = {
 					title: values.title,
 					slug: values.slug,
+					description: values.description,
 					body: values.body,
 					tags: JSON.stringify(values.tags),
 					pages: JSON.stringify(values.pages),
@@ -56,6 +57,7 @@ export class ArticlesCreateEditPage extends React.Component {
 					id: this.props.match.params.id,
 					title: values.title,
 					slug: values.slug,
+					description: values.description,
 					body: values.body,
 					tags: JSON.stringify(values.tags),
 					pages: JSON.stringify(values.pages),
@@ -104,6 +106,11 @@ export class ArticlesCreateEditPage extends React.Component {
 							  		<Field name="slug" component={inputField} type="text" label="Slug" placeholder="Slug" errors={this.props.errors && this.props.errors.slug} />
 							  	</div>
 							</div>
+							<div className="form-group row">
+							  	<div className="col-sm-12">
+									<Field name="description" component={textareaField} label="Description" errors={this.props.errors && this.props.errors.description} />
+							  	</div>
+							</div>
 					 		<div className="form-group row">
 							  	<div className="col-sm-12">
 									<Field name="body" component={editorField} label="Body" errors={this.props.errors && this.props.errors.body} />
@@ -126,7 +133,7 @@ export class ArticlesCreateEditPage extends React.Component {
 					    <div className="card-body">
 					    	<div className="form-group row">
 							  	<div className="col-12">
-					    			<Field name="status" component={selectableField} 
+					    			<Field name="status" component={selectableBooleanField} 
 										    options={[{'value':'draft','label':'Draft'},{'value':'published','label':'Published'}]} label="Status" errors={this.props.errors && this.props.errors.status} clearable={false} />
 								</div>
 							</div>

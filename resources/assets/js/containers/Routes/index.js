@@ -5,8 +5,6 @@ import { login, logout, clearStatus, checkToken } from '../../actions/authAction
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 import { HomePage } from "../Views/Public/HomePage";
-import { ArticlesPage } from "../Views/Public/ArticlesPage";
-import { VideosPage } from "../Views/Public/VideosPage";
 import { CuriousAboutPage } from "../Views/Public/CuriousAboutPage";
 import { LivingWithPage } from "../Views/Public/LivingWithPage";
 import { PreventiveCarePage } from "../Views/Public/PreventiveCarePage";
@@ -16,6 +14,10 @@ import { ExpertsListPage } from "../Views/Public/Pages/Experts/ExpertsListPage";
 import { ExpertsSinglePage } from "../Views/Public/Pages/Experts/ExpertsSinglePage";
 import { SearchPage } from "../Views/Public/Pages/Search/SearchPage";
 import { ReviewsSearchPage } from "../Views/Public/Pages/Reviews/ReviewsSearchPage";
+import { VideosSinglePage } from "../Views/Public/Pages/Videos/VideosSinglePage";
+
+import { ArticlesSinglePage } from "../Views/Public/Pages/Articles/ArticlesSinglePage";
+
 
 
 import { LoginPage } from "../Views/Admin/LoginPage";
@@ -82,8 +84,8 @@ export default class Routes extends React.Component {
 					<Switch>
 						<Route exact path='/' component={HomePage} />
 
-						<Route path='/articles/:slug' component={ArticlesPage} />
-						<Route path='/videos/:slug' component={VideosPage} />
+						<Route path='/articles/:slug' component={ArticlesSinglePage} />
+						<Route path='/videos/:slug' component={VideosSinglePage} />
 						<Route path='/curious-about' component={CuriousAboutPage} />
 						<Route path='/living-with' component={LivingWithPage} />
 						<Route path='/preventive-care' component={PreventiveCarePage} />
@@ -94,6 +96,7 @@ export default class Routes extends React.Component {
 
 						<Route path='/search/' exact component={SearchPage} />
 						<Route path='/search/:search' component={SearchPage} />
+						<Route path='/search?type=articles' component={SearchPage} />
 
 						<Route path='/reviews' exact component={ReviewsSearchPage} />
 						<Route path='/reviews/search/:search' component={ReviewsSearchPage} />

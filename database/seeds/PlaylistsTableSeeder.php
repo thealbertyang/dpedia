@@ -22,7 +22,7 @@ class PlaylistsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         $data = [
-            'title' => $title = $faker->name,
+            'title' => $title = 'Summer Collection Videos',
             'status' => 'published',
             'type' => 'videos',
             'user_id' => 1,
@@ -43,7 +43,7 @@ class PlaylistsTableSeeder extends Seeder
         }
         //$video = video::find($resource->id);
         $resource->tags()->sync($tagsToCreate);
-        $resource->resources()->sync([2,3,4]);
+        $resource->resources()->sync([4,5,6]);
         
         //Expert and quote
         //$expert = Expert::firstOrCreate(['first_name' => 'Lea', 'last_name' => 'MacGrory'], ['credentials' => 'MD', 'city' => 'Los Angeles', 'state' => 'CA', 'avatar_img' => 'uploads/images/avatars/img_placeholder_expert_leamacgrory_150x150.png']);

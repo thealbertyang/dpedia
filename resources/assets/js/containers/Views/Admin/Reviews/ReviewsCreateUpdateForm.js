@@ -96,7 +96,7 @@ class ReviewsCreateUpdateForm extends React.Component {
 
 	componentWillMount(){
 		this.props.type == "UPDATE" && this.props.dispatch(resourceCrudActions.get(this.props.match.params.id))
-		this.props.type == "UPDATE" && this.props.dispatch(reviewsCategoriesCrudActions.getAll())
+		this.props.dispatch(reviewsCategoriesCrudActions.getAll())
 		this.props.dispatch(tagsActions.crudGetAll('all'));
 		this.props.dispatch(clearMsg());
 		this.props.dispatch(reviewsActions.clearStatus());
@@ -201,7 +201,7 @@ class ReviewsCreateUpdateForm extends React.Component {
 										    	return {'value': item.id, 'label': item.title};
 										    })} label="Category" errors={this.props.errors && this.props.errors.sponsored} clearable={false} />
 						
-					    	<Field name="status" component={selectableField} 
+					    	<Field name="status" component={selectableBooleanField} 
 										    options={[{'value':'draft','label':'Draft'},{'value':'published','label':'Published'}]} label="Status" errors={this.props.errors && this.props.errors.status} clearable={false} />
 							<Field name="sponsored" component={selectableBooleanField} 
 										    options={[{'value':1,'label':'Yes'},{'value':0,'label':'No'}]} label="Sponsored" errors={this.props.errors && this.props.errors.sponsored} clearable={false} />

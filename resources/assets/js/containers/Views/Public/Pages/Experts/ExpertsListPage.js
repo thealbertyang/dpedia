@@ -33,7 +33,7 @@ export class ExpertsListPage extends React.Component {
 						<div className="container">
 							<div className="row">
 								<div className="col-12">
-									<h1 className="heading text-center">Meet Our Experts</h1>
+									<h1 className="heading text-center">Meet Our Diabetes Experts</h1>
 								</div>
 							</div>
 						</div>
@@ -53,10 +53,10 @@ export class ExpertsListPage extends React.Component {
 												</div>
 												<div className="col-9 d-flex flex-column justify-content-center">
 													<span className="heading">About</span>
-													<p>{expert.about}</p>
-													<a href={'/experts/'+expert.user.username}>See Expert Profile</a>
-													<span className="heading">Highlights</span>
-													<p>{expert.highlights}</p>
+													<p className="mb-1">{expert.about}</p>
+													<a href={'/experts/'+expert.user.username} className="mb-4">See Expert Profile</a>
+													<span className="heading mb-1">Highlights</span>
+													<p className="highlights" dangerouslySetInnerHTML={{ __html: `${expert.highlights}` }}></p>
 												</div>
 											</div>
 										</div>

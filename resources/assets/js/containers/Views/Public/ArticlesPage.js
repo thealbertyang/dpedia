@@ -22,19 +22,23 @@ export class ArticlesPage extends React.Component {
 	}
 
 	render(){
+		let backgroundStyle;
+
 		console.log(this.props);
 		if(this.props.articles.data){
 			var text = htmlToText.fromString(this.props.articles.data.body, {
 		    	wordwrap: 130
 			});
 			console.log(text);
+			backgroundStyle = this.props.articles.data.header_img !== "" ? { background: 'url(/'+this.props.articles.data.header_img+') center center / cover' } : {};
+
 		}
 		if(this.props.articles.status == 'fetch_resource_success'){
 		return (
 			<div className="page articles">
 				<SlideNavbarWrapper>
 				<div className="body">
-					<div className="hero section">
+					<div className="hero section" style={backgroundStyle}>
 					</div>		
 					<div className="section section-page-info bg-white">
 						<div className="container">

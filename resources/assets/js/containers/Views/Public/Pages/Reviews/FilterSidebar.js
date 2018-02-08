@@ -20,36 +20,23 @@ export class FilterSidebar extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = { 'select_all': { value: true, id: 'all' }};
-		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	componentWillMount(){
-		//this.props.match.params.search ? this.props.dispatch(getResults(this.props.match.params.search)) : this.props.dispatch(getResults('all'));
 		this.props.dispatch(reviewsCategoriesCrudActions.getAll());
 	}
 
-	componentDidMount(){
-	}
 
-	componentWillUnmount(){
-	}
-
-
-	handleInputChange(event) {
+	handleInputChange = (event) => {
 		const target = event.target;
 		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
 
-		ReactGA.event({
-			category: 'Search',
-			action: 'Filter',
-			label: event.target.getAttribute('data-title'),
-			value: event.target.getAttribute('data-id')
-		});
-
 		console.log('filtering');
 
+		//if select all was clicked then make 
 		if(target.name == 'select_all'){
+			//make all unchecked
 			Object.keys(this.state).map((item)=>{
 				this.setState({
 					[item]: {
@@ -57,8 +44,8 @@ export class FilterSidebar extends React.Component {
 					}
 				});
 			})	
-			//this.state.select_all == true ? this.setState({ select_all: false }) : this.setState({ select_all: true });
 
+			//make select all checked
 			this.setState({
 				select_all: {
 					value: true,
@@ -88,10 +75,10 @@ export class FilterSidebar extends React.Component {
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.filtering == true){
 		
-			//if all other values are false then select all other wise do not
 			let result = false;
 			let hits = 0;
 
+			//if all other values are false then select all other wise do not
 			for (let i in this.state) {
 			    if (i !== 'select_all' && this.state[i].value === true) {
 			        hits++;
@@ -128,9 +115,9 @@ export class FilterSidebar extends React.Component {
 		}
 
 		//this.props.dispatch(setFilter(filters));
-		console.log('SEARCh TERM', this.props.searchTerm, 'test', filters);
+		console.log('SEARCh TERM', this.props.searchValue, 'test', filters);
 		//this.props.dispatch(getResults(((this.props.searchTerm && typeof this.props.searchTerm !== 'undefined') ? this.props.searchTerm : 'all'),filters));
-
+		this.props.filterFn(filters);
 
 		this.setState({filtering : false})
 		}
@@ -139,6 +126,7 @@ export class FilterSidebar extends React.Component {
 	render(){
 		return (
 			<div className={`col-md-12 ${this.props.isActive === true && 'isActive'}`}>
+				<h6 className="heading">Discover Resources</h6>
 				<ul className="filter">
 					<li>
 						<label className="custom-control custom-checkbox">
@@ -163,13 +151,3 @@ export class FilterSidebar extends React.Component {
 		)
 	}
 }
-const selector = formValueSelector('search')
-
-FilterSidebar = connect(store => { 
-	let searchTerm = selector(store, 'search');
-
-	return {
-		searchTerm
-	}
-})(reduxForm({form: 'search', enableReinitialize: true})(FilterSidebar));
-export default FilterSidebar;

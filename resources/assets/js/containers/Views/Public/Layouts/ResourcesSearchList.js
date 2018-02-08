@@ -50,7 +50,7 @@ export class ResourcesSearchList extends React.Component {
 								})}
 								{resources && resources.length > this.state.count && 
 									<div className="col-md-12 mx-auto mt-4 text-center">
-										<a href="#" className="see-more" onClick={(e)=>this.seeMore(e)}>See more...</a>
+										<a href="#" className="see-more" onClick={(e)=>this.seeMore(e)}>See more <i className="fa fa-play"></i></a>
 									</div>
 								}
 							</div>									

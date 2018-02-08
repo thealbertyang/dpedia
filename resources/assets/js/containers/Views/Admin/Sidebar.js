@@ -19,7 +19,7 @@ export default class Sidebar extends React.Component {
 	    this.props.dispatch(logout());
 	}
 	render(){
-		console.log('SIDEBAR PROPS', this.props)
+		//console.log('SIDEBAR PROPS', this.props)
 		return (
 			<div className="sidebar">
 				<div className="sidebar__logo">
@@ -28,7 +28,7 @@ export default class Sidebar extends React.Component {
 				<ul className="nav nav-pills flex-column">
 					{config.ADMIN.ROUTES.map((route, index)=>{
 
-						console.log((!route.roles), route.roles);
+						//console.log((!route.roles), route.roles);
 						//if there is a route['role'] then check if role has access before placing
 						if((!route.roles) || (route.roles && route.roles.includes(this.props.auth.role))){
 							return (

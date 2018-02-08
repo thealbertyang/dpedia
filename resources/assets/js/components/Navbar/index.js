@@ -62,14 +62,14 @@ export class Navbar extends React.Component {
   render(){
     return (
       <nav className="navbar navbar-expand-md">
-        <a href="/" className="nav-link navbar-brand"><img src="/img/logo_diabetespedia.svg" className="logo" /><span className="slogan">One Click Away From Trusted Resources <sup>&trade;</sup></span></a>        
+        <a href="/" className="nav-link navbar-brand"><img src="/img/logo_diabetespedia.svg" className="logo" /><span className="slogan">Healthcare in your hands. <sup>&trade;</sup></span></a>        
         <a onClick={()=>this.navbarToggle()} className="navbar-toggler">
           <span className="navbar-toggler-icon"></span>
         </a>
         <div className={`${this.state.isActive ? '' : 'collapse'} navbar-collapse`} id="navbarSupportedContent" ref={this.setWrapperRef}>
           <ul className="navbar-nav mr-auto">
-            <li><NavLink exact to="/curious-about" className="nav-link">Curious About</NavLink></li>
-            <li><NavLink exact to="/living-with" className="nav-link">Living With</NavLink></li>
+            <li><NavLink exact to="/curious-about" className="nav-link">Curious About Diabetes</NavLink></li>
+            <li><NavLink exact to="/living-with" className="nav-link">Living With Diabetes</NavLink></li>
             <li><NavLink exact to="/preventive-care" className="nav-link">Preventive Care</NavLink></li>
             <li><NavLink exact to="/alternative-care" className="nav-link">Alternative Care</NavLink></li>
             <li><NavLink exact to="/experts" className="nav-link">Our Experts</NavLink></li>

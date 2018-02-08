@@ -8,6 +8,7 @@ export default function pagesReducer(state = {
 	status: null,
 	errors: null,
 	data: null,
+	related: null,
 	records: null,
 	results: {
 		to: null,
@@ -18,7 +19,7 @@ export default function pagesReducer(state = {
 		next_url: null
 	}
 }, action) {
-	switch(action.type) {
+	switch(action.type) { 
 		case reducerName+"_SEARCH": {
 			state = {...state, busy: true, status: 'searching_resource' }
 			break;
@@ -31,6 +32,20 @@ export default function pagesReducer(state = {
 		case reducerName+"_SEARCH_ERROR": {
 			console.log('what', reducerName);
 			state = {...state, busy: false, status: 'search_resource_error' }
+			break;
+		}
+		case reducerName+"_FILTER": {
+			state = {...state, busy: true, status: 'searching_resource' }
+			break;
+		}
+		case reducerName+"_FILTER_SUCCESS": {
+			console.log('success search')
+			state = {...state, busy: false, status: 'filter_resources_success', records: action.payload, results: {...state.results, to: action.to, from: action.from, total: action.total, current: action.current, prev_url: action.prev_url, next_url: action.next_url} }
+			break;
+		}
+		case reducerName+"_FILTER_ERROR": {
+			console.log('what', reducerName);
+			state = {...state, busy: false, status: 'filter_resource_error' }
 			break;
 		}		
 		case reducerName+"_FETCH": {
@@ -54,11 +69,26 @@ export default function pagesReducer(state = {
 		}
 		case reducerName+"_FETCH_ALL_SUCCESS": {
 			console.log('reviews fetch');
-			state = {...state, busy: false, status: 'fetch_resources_success', records: action.payload, results: {...state.results, to: action.to, from: action.from, total: action.total, current: action.current, prev_url: action.prev_url, next_url: action.next_url} }
+			state = {...state, busy: false, status: 'fetch_resources_success', records: {...action.payload}, results: {...state.results, to: action.to, from: action.from, total: action.total, current: action.current, prev_url: action.prev_url, next_url: action.next_url} }
 			break;
 		}
 		case reducerName+"_FETCH_ALL_ERROR": {
 			state = {...state, busy: false, status: 'fetch_resources_error' }
+			break;
+		}
+		case reducerName+"_FETCH_RELATED": {
+			state = {...state, busy: true, status: 'fetching_resource_related' }
+			break;
+		}
+		case reducerName+"_FETCH_RELATED_SUCCESS": {
+			console.log('review fetch');
+
+			state = {...state, busy: false, related: action.payload, status: 'fetch_resource_related_success'}
+			break;
+		}
+		case reducerName+"_FETCH_RELATED_ERROR": {
+			console.log('what', reducerName);
+			state = {...state, busy: false, status: 'fetch_resource_related_error' }
 			break;
 		}
 		case reducerName+"_DELETE": {

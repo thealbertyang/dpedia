@@ -26,7 +26,7 @@ class ReviewsController extends ApiFormController
        // Apply the jwt.auth middleware to all methods in this controller
        // except for the authenticate method. We don't want to prevent
        // the user from retrieving their token if they don't already have it
-       $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'related', 'search']]);
+       $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'related', 'search', 'filter']]);
     }
 
     /**
@@ -236,8 +236,11 @@ class ReviewsController extends ApiFormController
         //IF VALID
         else { 
             try {
-                $header_img = '';
-                $icon_img = '';
+
+                $resource = Review::find($id);
+
+                $header_img = $resource->header_img;
+                $icon_img = $resource->icon_img;
 
                 //var_dump($_POST, $_FILES, request()->all());
                 if(request()->hasFile('header_img')) {
@@ -272,7 +275,7 @@ class ReviewsController extends ApiFormController
                     'pages' => request('pages'),
                 ];
 
-                $resource = Review::find($id);
+                
                 //var_dump($resource);
                 $tags = [];
 
@@ -375,6 +378,40 @@ class ReviewsController extends ApiFormController
             else if($filter == 'reviews_category' && !empty(request('ids'))){
                 $search = Review::search($term)->whereIn('reviews_category_id', request('ids'))->values()->paginate(10);
                 return $search;
+            }
+            else if($filter == 'reviews_category' && empty(request('ids'))){
+                $search = Review::search($term)->values()->paginate(10);
+                return $search;
+            }
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+
+            switch ($errorCode) {
+                //default error
+                default: 
+                    return $this->respondError(); 
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Search specified resource from storage.
+     *
+     * @param  \App\Reviews  $Review
+     * @return \Illuminate\Http\Response
+     */
+    public function filter($filter = false)
+    {
+        // delete
+        try { 
+            if($filter == 'reviews_category' && !empty(request('ids'))){
+                $search = Review::whereIn('reviews_category_id', request('ids'))->paginate(10);
+                return $search;
+            }
+            else {
+                return $search = Review::paginate(10);
             }
         }
         catch(\Illuminate\Database\QueryException $e){

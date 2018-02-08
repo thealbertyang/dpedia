@@ -338,6 +338,7 @@ export default class HeroField extends React.Component {
 								placeholder='Type'
 								onBlur={(e)=>{console.log('event check', e, e.target.value); }}
 								onChange={(e)=>{ console.log('event check change', e); this.changeType(e.value)}}
+								className="form-control"
 							/>
 						</div>
 						<div className="col-6">
@@ -349,6 +350,7 @@ export default class HeroField extends React.Component {
 								placeholder='Type'
 								onBlur={(e)=>{console.log('event check', e, e.target.value); }}
 								onChange={(e)=>{ console.log('event check change resource', e); this.changeResourceType(e.value)}}
+								className="form-control"
 							/>
 						</div>
 					</div>

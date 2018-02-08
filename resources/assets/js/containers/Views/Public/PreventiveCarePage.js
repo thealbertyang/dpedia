@@ -52,13 +52,13 @@ export class PreventiveCarePage extends React.Component {
 					</div>
 					<ResourcesList title="Recent Articles" type="articles" records={this.props.articles.records && 
 						this.props.articles.records.filter((item)=>{
-							if(item.pages && JSON.parse(item.pages).includes('preventive-care') && item.status == 'published'){
+							if(item.pages != null && item.pages && JSON.parse(item.pages) && JSON.parse(item.pages).includes('preventive-care') && item.status == 'published'){
 								return item;
 							}
 						})} />
 					<ResourcesList title="Recent Videos" type="videos" records={this.props.videos.records && 
 						this.props.videos.records.filter((item)=>{
-							if(item.pages && JSON.parse(item.pages).includes('curious-about') && item.status == 'published'){
+							if(item.pages != null && item.pages && JSON.parse(item.pages) && JSON.parse(item.pages).includes('curious-about') && item.status == 'published'){
 								return item;
 							}
 						})} />

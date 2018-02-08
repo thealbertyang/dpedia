@@ -45,14 +45,20 @@ Route::get('/user', function(){
 Route::apiResource('users', 'UsersController');
 
 Route::apiResource('resources', 'ResourcesController');
+Route::get('resources/{id}/related', 'ResourcesController@related');
+Route::get('resources/search', 'ResourcesController@search');
 Route::get('resources/search/{term}', 'ResourcesController@search');
 Route::get('resources/search/{term}/{filter}', 'ResourcesController@search');
 Route::get('resources/search/{term}/{filter}/{value}', 'ResourcesController@search');
+Route::get('resources/filter', 'ResourcesController@filter');
+Route::get('resources/filter/{filter}', 'ResourcesController@filter');
+Route::get('resources/filter/{filter}/{value}', 'ResourcesController@filter');
 
 Route::apiResource('articles', 'ArticlesController');
 Route::get('articles/search/{term}', 'ArticlesController@search');
 
 Route::apiResource('videos', 'VideosController');
+Route::get('videos/{id}/related', 'VideosController@related');
 Route::get('videos/search/{term}', 'VideosController@search');
 
 Route::apiResource('reviews', 'ReviewsController');
@@ -60,6 +66,8 @@ Route::get('reviews/{id}/related', 'ReviewsController@related');
 Route::get('reviews/search/{term}', 'ReviewsController@search');
 Route::get('reviews/search/{term}/{filter}', 'ReviewsController@search');
 Route::get('reviews/search/{term}/{filter}/{value}', 'ReviewsController@search');
+Route::get('reviews/filter', 'ReviewsController@filter');
+Route::get('reviews/filter/{filter}', 'ReviewsController@filter');
 
 Route::apiResource('playlists', 'PlaylistsController');
 Route::apiResource('pages', 'PagesController');

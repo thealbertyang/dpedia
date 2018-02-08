@@ -17,7 +17,7 @@ class CreateResourcesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('header_img')->nullable();
             $table->string('status')->nullable();
             $table->integer('resourceable_id')->nullable();

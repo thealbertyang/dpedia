@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Resource;
 use App\Category;
 use App\Quote;
+use App\Expert;
 use App\Tag;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -23,7 +24,7 @@ class ResourcesController extends ApiFormController
            // Apply the jwt.auth middleware to all methods in this controller
            // except for the authenticate method. We don't want to prevent
            // the user from retrieving their token if they don't already have it
-           $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'related_resource', 'related_category_resources', 'similar_resources', 'search']]);
+           $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'filter', 'related_resource', 'related_category_resources', 'similar_resources', 'search']]);
        }
 
     /**
@@ -319,7 +320,7 @@ class ResourcesController extends ApiFormController
                 //Update 
                 $data = [
                         'title' => request('title'),
-                        'slug' => request('slug'), 
+                        'slug' => str_slug(request('slug')), 
                         'body' => request('body'),
                         'header_img' => request('header_img'),
                         'status' => request('status'),
@@ -393,39 +394,30 @@ class ResourcesController extends ApiFormController
         }
     }
 
-    public function related_resource($id)
+    public function related($id)
     {
+        $ignoredIds = [];
 
-        if($resource = Resource::with('tags','category','expert', 'quote')->where('id',$id)->first()){
-            return Resource::with('tags','category','expert', 'quote')->where('id',$resource->related_resource_id)->first();
-        }
-        else if ($resource = Resource::with('tags','category','expert', 'quote')->where('slug',$id)->first()){
-            return Resource::with('tags','category','expert', 'quote')->where('id',$resource->related_resource_id)->first();
-        }
-    }
+        $resource = Resource::find($id) ?? Resource::where('slug', $id)->first();
 
-    public function related_category_resources($id, $category_id)
-    {
+        $results['related_by_expert'] = Resource::where('user_id', $resource->user_id)->get()->transform(function($item, $key){
 
-        if($resource = Resource::with('tags','category','expert', 'quote')->where('category_id','=',$category_id)->where('id','!=',$id)->get()){
-            return $resource;
-        }
-    }
+                if(!empty($item) && $item->resourceable){
+                    $item = array_merge($item->resourceable->toArray(), $item->toArray());
+                }
+                return $item;
+        });
 
-    public function similar_resources($id)
-    {
-        if($resource = Resource::with('tags','category','expert', 'quote')->where('id','!=',$id)->get()->shuffle()){
-            return $resource;
-        }
+        return $results;
     }
 
  /**
      * Search specified resource from storage.
      *
      * @param  \App\Reviews  $Review
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
-    public function search($term, $filter = false, $value = null) 
+    public function search($term = null, $filter = false, $value = null) 
     {
         // delete
         try { 
@@ -456,6 +448,50 @@ class ResourcesController extends ApiFormController
             }
             else if($filter == 'expert' && $search = Resource::search($term)->where('resourceable_type','!=','App\Page')->sortByDesc('user_id')->values()->paginate(10)){
                 return $search;
+            }
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+
+            switch ($errorCode) {
+                //default error
+                default: 
+                    return $this->respondError(); 
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Search specified resource from storage.
+     *
+     * @param  \App\Reviews  $Review
+     * @return \Illuminate\Http\Response
+     */
+    public function filter($filter = false, $value = null)
+    {
+        // delete
+        try { 
+            $expert = Expert::find(request('id'));
+
+            if($filter == 'expert' && !empty(request('id')) && $expert && $userId = $expert->user->id){
+                $search = Resource::where('user_id',$userId)->paginate(10);
+                return $search;
+            }
+            else if($filter == 'type'){
+                if($value == 'articles'){
+                    $search = Resource::with('resourceable')->where('resourceable_type', 'App\Article')->paginate(10);
+                }
+                else if($value == 'videos'){
+                    $search = Resource::with('resourceable')->where('resourceable_type', 'App\Video')->paginate(10);
+                }
+                else if($value == 'reviews'){
+                    $search = Resource::with('resourceable')->where('resourceable_type', 'App\Review')->paginate(10);
+                }
+                return $search;
+            }
+            else {
+                return $search = Resource::where('id',0)->paginate(10);
             }
         }
         catch(\Illuminate\Database\QueryException $e){

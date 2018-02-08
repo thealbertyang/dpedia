@@ -192,26 +192,25 @@ const returnFile = (file, callback) => {
 export const imageUploadField = ({ input: { value: value, onChange, onBlur, ...inputProps}, meta: omitMeta, ...props}) => {
     let reader = new FileReader();
     let file; 
+    let test = (upload) => {
+	   		//console.log('file worked', upload, 'reader result', reader.result)
+	   		file = reader.result;
+	    	return upload;
+	}
 
-    if(value instanceof File){
+	if(value instanceof File){
+	   	reader.onloadend = test(value);
+	   	reader.readAsDataURL(value);
 
-
-   	reader.onloadend = (function(upload) {
-   		console.log('file worked', upload)
-   		
-    	return upload;
-   	})(value);
-   	reader.readAsDataURL(value);
-
-   	console.log('reader', reader, 'reader result', reader.result, 'reader.onloadend', reader.onloadend);
-   	file = reader.result;
-
-
-   }
-   else {
-   	file = '/'+value;
-   }
-    console.log('which one is it', file);
+	   	//console.log('reader', reader, 'reader result', reader.result, 'reader.onloadend', reader.onloadend);
+	   	//file = reader.result;
+	}
+	else {
+		if(value !== null && value !== ''){
+			file = '/'+value;
+		}
+	}
+    //console.log('which one is it', 'file', file, 'value', value, 'test', test);
 
 	return (
 		<div className="row">
@@ -223,7 +222,7 @@ export const imageUploadField = ({ input: { value: value, onChange, onBlur, ...i
 				{...inputProps}
 				{...props}
 				/>
-				<img src={file} className="full-width" />
+				{file && <img src={file} className="full-width" />}
   			</div>
   		</div>
 	)

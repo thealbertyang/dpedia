@@ -8,6 +8,7 @@ export default function videosReducer(state = {
 	status: null,
 	errors: null,
 	data: null,
+	related: null,
 	records: null,
 	results: {
 		to: null,
@@ -57,6 +58,21 @@ export default function videosReducer(state = {
 			state = {...state, status: 'fetch_resources_error' }
 			break;
 		}
+		case reducerName+"_FETCH_RELATED": {
+			state = {...state, busy: true, status: 'fetching_resource_related' }
+			break;
+		}
+		case reducerName+"_FETCH_RELATED_SUCCESS": {
+			console.log('review fetch');
+
+			state = {...state, busy: false, related: action.payload, status: 'fetch_resource_related_success'}
+			break;
+		}
+		case reducerName+"_FETCH_RELATED_ERROR": {
+			console.log('what', reducerName);
+			state = {...state, busy: false, status: 'fetch_resource_related_error' }
+			break;
+		}		
 		case reducerName+"_DELETE": {
 			state = {...state, status: 'deleting'}
 			break;

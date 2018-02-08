@@ -8,7 +8,7 @@ import { Form, Field, reduxForm, SubmissionError } from 'redux-form'
 import { Redirect, Link, withRouter } from 'react-router-dom'
 
 import { IndexCreateEditContainer } from '../IndexCreateEditContainer'
-import { inputField, selectableField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
+import { inputField, selectableBooleanField, textareaField, editorField, tagsField, checkboxGroup } from '../../../../components/Form'
 
 let resourceCrudActions = new crudActions('USERS','users');
 
@@ -23,7 +23,7 @@ export class UsersCreateEditPage extends React.Component {
 	constructor(props){
 		super(props);	
 		this.submit = this.submit.bind(this);
-		this.state = { page: null };
+		this.state = { page: 1, role: null };
 	} 
 
 	submit(values){	
@@ -56,6 +56,14 @@ export class UsersCreateEditPage extends React.Component {
 		this.props.dispatch(resourceCrudActions.clearStatus());
 	}
 
+	nextPage = () => {
+    	this.setState({page: this.state.page + 1})
+  	}
+
+  	backPage = () => {
+    	this.setState({page: this.state.page - 1})
+  	}
+
 	render(){
 		console.log('PROPSSSSSS', this.state)
 		if(this.props.status == 'submit_success'){
@@ -70,7 +78,7 @@ export class UsersCreateEditPage extends React.Component {
 		return (
 			<IndexCreateEditContainer type={this.props.type} title="Users" matchUrl={this.props.match.url}>
 			    <Form onSubmit={this.props.handleSubmit(this.submit)} className="form">
-			    	<div className="row">
+			    	{this.state.page == 1 && this.state.page !== 'expert' && <div className="row">
 				    	<div className="col-12">
 					    	<div className="card">
 							    <div className="card-header">
@@ -81,7 +89,7 @@ export class UsersCreateEditPage extends React.Component {
 										<div className="col-sm-6">
 							        		<Field name="first_name" component={inputField} type="text" label="First Name" errors={this.props.errors && this.props.errors.first_name} />
 							 			</div>
-							 			<div className="col-sm-6">
+							 			<div className="col-sm-6"> 
 							        		<Field name="last_name" component={inputField} type="text" label="Last Name" errors={this.props.errors && this.props.errors.last_name} />
 							 			</div>
 							 		</div>
@@ -97,19 +105,20 @@ export class UsersCreateEditPage extends React.Component {
 									</div>
 									<div className="form-group row">
 										<div className="col-sm-12">
-										    <Field name="role" hookValue={(value)=>{ console.log('hkv eval'); this.setState({ page: value }); }} component={selectableField} 
+										    <Field name="role" hookValue={(value)=>{ console.log('hkv eval'); this.setState({ role: value.value }); }} component={selectableBooleanField} 
 												    options={[{'value':'admin','label':'Administrator'},{'value':'member','label':'Member'},{'value':'expert','label':'Expert'}]} label="Role" errors={this.props.errors && this.props.errors.role}/>
 										</div>
 									</div>
 							    </div>
 							    <div className="card-footer">
-						        	<button type="submit" className="btn btn-primary">Save changes</button>
-						        	<Link to={`${config.ADMIN.DIR}/users`} className="btn btn-secondary">Close</Link>
+							    	{this.state.role == 'expert' && <button className="btn btn-primary float-right" onClick={()=>this.nextPage()}>Next</button>}
+						        	{this.state.role !== 'expert' && <button type="submit" className="btn btn-primary">Save changes</button>}
+						        	{this.state.role !== 'expert' && <Link to={`${config.ADMIN.DIR}/users`} className="btn btn-secondary">Close</Link>}
 								</div>
 							</div>
 						</div>
-					</div>
-			    	{this.state.page == 'expert' && <div className="row">
+					</div>}
+			    	{this.state.role == 'expert' && this.state.page == 2 && <div className="row">
 				    	<div className="col-12">
 					    	<div className="card">
 							    <div className="card-header">
@@ -118,30 +127,35 @@ export class UsersCreateEditPage extends React.Component {
 							    <div className="card-body">
 									<div className="form-group row">
 										<div className="col-sm-6">
-							        		<Field name="first_name" component={inputField} type="text" label="First Name" errors={this.props.errors && this.props.errors.first_name} />
+							        		<Field name="occupation" component={inputField} type="text" label="Occupation" placeholder="Occupation" errors={this.props.errors && this.props.errors.occupation} />
 							 			</div>
-							 			<div className="col-sm-6">
-							        		<Field name="last_name" component={inputField} type="text" label="Last Name" errors={this.props.errors && this.props.errors.last_name} />
+										<div className="col-sm-6">
+							        		<Field name="credentials" component={inputField} type="text" label="Credentials" placeholder="Credentials" errors={this.props.errors && this.props.errors.credentials} />
 							 			</div>
 							 		</div>
-							 		<div className="form-group row">
-									  	<div className="col-sm-12">
-									  		<Field name="email" component={inputField} type="email" label="Email" errors={this.props.errors && this.props.errors.email} />
-									  	</div>
-									</div>
-									<div className="form-group row">
-									  	<div className="col-sm-12">
-									  		<Field name="password" component={inputField} type="password" label="Password" errors={this.props.errors && this.props.errors.password} />
-									  	</div>
-									</div>
 									<div className="form-group row">
 										<div className="col-sm-12">
-										    <Field name="role" onClick={()=>alert('tset')} component={selectableField} 
-												    options={[{'value':'admin','label':'Administrator'},{'value':'member','label':'Member'},{'value':'expert','label':'Expert'}]} label="Role" errors={this.props.errors && this.props.errors.role}/>
-										</div>
-									</div>
-							    </div>
+							        		<Field name="about" component={textareaField} type="text" label="About" placeholder="About" errors={this.props.errors && this.props.errors.about} />
+							 			</div>
+							 		</div>
+									<div className="form-group row">
+										<div className="col-sm-12">
+							        		<Field name="highlights" component={textareaField} type="text" label="Highlights" placeholder="Highlights" errors={this.props.errors && this.props.errors.highlights} />
+							 			</div>
+							 		</div>
+									<div className="form-group row">
+										<div className="col-sm-12">
+							        		<Field name="affiliations" component={inputField} type="text" label="Affiliations" placeholder="affiliations" errors={this.props.errors && this.props.errors.affiliations} />
+							 			</div>
+							 		</div>
+									<div className="form-group row">
+										<div className="col-sm-12">
+							        		<Field name="personal_url" component={inputField} type="text" label="Personal URL" placeholder="Personal URL" errors={this.props.errors && this.props.errors.personal_url} />
+							 			</div>
+							 		</div>
+						    	</div>
 							    <div className="card-footer">
+							    	<button className="btn btn-primary float-right" onClick={()=>this.backPage()}>Back</button>
 						        	<button type="submit" className="btn btn-primary">Save changes</button>
 						        	<Link to={`${config.ADMIN.DIR}/users`} className="btn btn-secondary">Close</Link>
 								</div>

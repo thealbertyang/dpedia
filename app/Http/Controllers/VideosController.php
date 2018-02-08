@@ -83,8 +83,13 @@ class VideosController extends ApiFormController
 
                 //var_dump($_POST, $_FILES, request()->all());
                 if(request()->hasFile('header_img')) {
-                    $header_img = Imageupload::upload(request()->file('header_img'), 'original', '/headers/*');
-                    $header_img = $header_img['original_filedir'];
+                    try {
+                        $header_img = Imageupload::upload(request()->file('header_img'), 'original', '/headers/*');
+                        $header_img = $header_img['original_filedir'];
+                    }
+                    catch(Matriphe\Imageupload\ImageuploadException $e){
+                        return $this->respondError(null, ['error'=> $errorCode, 'message'=>$e]); 
+                    }
                 } 
 
                 $resourceData = [
@@ -96,7 +101,7 @@ class VideosController extends ApiFormController
                     'header_img' => $header_img,
                 ];
 
-                $data2 = [
+                $data= [
                     'pages' => request('pages'), 
                     'video_url' => request('video_url'),
                 ];
@@ -222,7 +227,9 @@ class VideosController extends ApiFormController
         else { 
             try {
                 //Update 
-                $header_img = '';
+                $resource = Video::find($id);
+
+                $header_img = $resource->header_img;
 
                 //var_dump($_POST, $_FILES, request()->all());
                 if(request()->hasFile('header_img')) {
@@ -231,7 +238,7 @@ class VideosController extends ApiFormController
                 }      
 
                 $resourceData = [
-                    'slug' => request('slug'), 
+                    'slug' => str_slug(request('slug')), 
                     'title' => request('title'), 
                     'description' => request('description'), 
                     'status' => request('status'),
@@ -244,7 +251,6 @@ class VideosController extends ApiFormController
                     'video_url' => request('video_url'),
                 ];
 
-                $resource = Video::find($id);
                 //var_dump($resource);
                 $tags = [];
 
@@ -294,9 +300,24 @@ class VideosController extends ApiFormController
      * @param  \App\Video  $video
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Video $video) 
+    public function destroy($id) 
     {
-        //
+        // delete
+        try { 
+            if(Video::find($id)->resource()->delete() && Video::find($id)->delete()){
+                return $this->respondSuccess('Successfully deleted.');
+            }
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+
+            switch ($errorCode) {
+                //default error
+                default: 
+                    return $this->respondError(); 
+                    break;
+            }
+        }
     }
 
     /**
@@ -323,5 +344,17 @@ class VideosController extends ApiFormController
                     break;
             }
         }
+    }
+
+    public function related($id)
+    {
+        $ignoredIds = [];
+
+        //$resource = Video::find($id) ?? Video::whereHas('resource', function ($query) use ($id) { $query->where('slug', $id); })->get();
+        $resource = Video::all();
+
+        $results['related_shuffle'] = $resource->shuffle();
+
+        return $results;
     }
 }

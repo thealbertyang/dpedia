@@ -37,10 +37,11 @@ export default class crudActions {
 	{
 		return (dispatch) =>
 		{
+			console.log('WE HERE', filter);
 			let pageNumber = null;
 			dispatch({type: this.actionName+'_SEARCH'})
 			const cookies = new Cookies();
-			axios.get('/api/'+this.apiName+'/search/'+term+(filter ? '/'+filter : '')+'?token='+cookies.get('token'))
+			axios.get('/api/'+this.apiName+'/search/'+term+(filter ? '/'+filter : ''))
 			.then((response) => {
 				console.log('hiyah');
 				dispatch({type: this.actionName+'_SEARCH_SUCCESS', payload: pageNumber == 'all' ? response.data : response.data.data, to: response.data.to, from: response.data.from, total: response.data.total, current: response.data.current_page, prev_url: response.data.prev_page_url, next_url: response.data.next_page_url})
@@ -49,6 +50,27 @@ export default class crudActions {
 			.catch((err) => { 
 				console.log('error', err);
 				dispatch({type: this.actionName+'_SEARCH_ERROR', payload: null}) 
+			})
+		}
+	}
+
+	filter = (filter = null) =>
+	{
+		return (dispatch) =>
+		{
+			console.log('WE HERE', filter);
+			let pageNumber = null;
+			dispatch({type: this.actionName+'_FILTER'})
+			const cookies = new Cookies();
+			axios.get('/api/'+this.apiName+'/filter/'+(filter ? filter : ''))
+			.then((response) => {
+				console.log('hiyah');
+				dispatch({type: this.actionName+'_FILTER_SUCCESS', payload: pageNumber == 'all' ? response.data : response.data.data, to: response.data.to, from: response.data.from, total: response.data.total, current: response.data.current_page, prev_url: response.data.prev_page_url, next_url: response.data.next_page_url})
+			
+			})
+			.catch((err) => { 
+				console.log('error', err);
+				dispatch({type: this.actionName+'_FILTER_ERROR', payload: null}) 
 			})
 		}
 	}
@@ -69,7 +91,7 @@ export default class crudActions {
 		}
 	}
 
-	getAll = (pageNumber) => 
+	getAll = (pageNumber) =>  
 	{
 		return (dispatch) => {	
 			dispatch({type: this.actionName+'_FETCH_ALL'});

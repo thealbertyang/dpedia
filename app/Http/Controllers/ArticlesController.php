@@ -39,7 +39,7 @@ class ArticlesController extends ApiFormController
             return Article::all();
         }
         else {
-            return Article::paginate(10);
+            return Article::with('resource')->paginate(10);
         }
     }
 
@@ -166,7 +166,7 @@ class ArticlesController extends ApiFormController
             if($resource = Article::with('resource')->where('id',$id)->first()){
                 return response()->json($this->normalize($resource));
             }
-            else if ($resource = Article::whereHas('resource', function($q) use ($id) {
+            else if ($resource = Article::with('resource')->whereHas('resource', function($q) use ($id) {
                 $q->where('slug',$id);
             })->first()){
                 return response()->json($resource);
@@ -224,7 +224,9 @@ class ArticlesController extends ApiFormController
         else { 
             try {
                 //Update 
-                $header_img = '';
+                $resource = Article::find($id);
+
+                $header_img = $resource->header_img;
 
                 //var_dump($_POST, $_FILES, request()->all());
                 if(request()->hasFile('header_img')) {
@@ -233,7 +235,7 @@ class ArticlesController extends ApiFormController
                 }      
 
                 $resourceData = [
-                    'slug' => request('slug'), 
+                    'slug' => str_slug(request('slug')), 
                     'title' => request('title'), 
                     'status' => request('status'),
                     'description' => request('description'),
@@ -246,7 +248,6 @@ class ArticlesController extends ApiFormController
                     'body' => request('body'),
                 ];
 
-                $resource = Article::find($id);
                 //var_dump($resource);
                 $tags = [];
 
@@ -300,7 +301,7 @@ class ArticlesController extends ApiFormController
     {
         // delete
         try { 
-            if(Article::find($id)->delete()){
+            if(Article::find($id)->resource()->delete() && Article::find($id)->delete()){
                 return $this->respondSuccess('Successfully deleted.');
             }
         }

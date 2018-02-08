@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             //$table->string('slug');
             //$table->text('body')->nullable();
             //$table->string('header_img')->nullable();
-            $table->text('body')->nullable();
+            $table->longText('body')->nullable();
             $table->string('pages')->nullable();
             //$table->integer('expert_id')->nullable();
             //$table->string('status');

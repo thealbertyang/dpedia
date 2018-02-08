@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from "react-redux"
 import store from "../../../../../store"
 import Footer from '../../../../../components/Footer'
-import { ResourcesList } from '../../Layouts/ResourcesList'
-import { ResourceRelatedList } from '../../Layouts/ResourceRelatedList'
+import { ReviewsRelated } from './ReviewsRelated'
 import SlideNavbarWrapper from '../../Layouts/SlideNavbarWrapper'
 import * as htmlToText from 'html-to-text'
 import crudActions from '../../../../../actions/crudActions'
@@ -45,11 +44,15 @@ export class ReviewsSinglePage extends React.Component {
 
 	render(){
 		console.log('SINGLE PAGE PROPS', this.props);
+		let backgroundStyle;
+
 		if(this.props.reviews.data){
 			var text = htmlToText.fromString(this.props.reviews.data.body, {
 		    	wordwrap: 130
 			});
 			console.log(text);
+			console.log(this.props.reviews.data.header_img !== "", this.props.reviews.data.header_img, this.props.reviews.data.header_img !== null)
+			backgroundStyle = this.props.reviews.data.header_img !== "" ? { background: 'url(/'+this.props.reviews.data.header_img+') center center / cover' } : {};
 		}
 		if(this.props.reviews && this.props.reviews.data && this.props.reviews.records && this.props.reviews.related){
 		return (
@@ -65,13 +68,13 @@ export class ReviewsSinglePage extends React.Component {
 					  <li className="breadcrumb-item"><a href="#">Home</a></li>
 					  <li className="breadcrumb-item active">Find Resources</li>
 					</ol>	
-					<div className="hero hero-reviews section">
+					<div className="hero hero-reviews section" style={backgroundStyle}>
 						<div className="container">
 							<div className="row">
 								<div className="col-12 text-center">
 									<img src="/uploads/images/icons/Icon_mySugr_200x200.png" className="icon" />
 									<h1 className="heading">{this.props.reviews.data.title}</h1>
-									<a href="https://mysugr.com/" className="btn-cta btn btn-primary" target="_blank">See this website <i className="fa fa-external-link" aria-hidden="true"></i></a>
+									<a href="https://mysugr.com/" className="btn-cta btn btn-primary" target="_blank">View website <i className="fa fa-external-link" aria-hidden="true"></i></a>
 								</div>
 							</div>
 						</div>
@@ -124,7 +127,7 @@ export class ReviewsSinglePage extends React.Component {
 									</div>
 									<div className="test-row">
 										<div className="test-ad">
-											<ResourceRelatedList 
+											<ReviewsRelated
 												type="related_single" 
 												data={this.props.reviews.data} 
 												related={this.props.reviews.related}
@@ -136,14 +139,14 @@ export class ReviewsSinglePage extends React.Component {
 										</div>
 									</div>
 									<hr className="highlight mb-5" />
-									<ResourceRelatedList 
+									<ReviewsRelated 
 												type="related_shuffle" 
 												data={this.props.reviews.data} 
 												related={this.props.reviews.related}
 											/>
 								</div>
 								<div className="col-12 col-md-4">
-									<ResourceRelatedList 
+									<ReviewsRelated 
 												type="related_in_category" 
 												data={this.props.reviews.data} 
 												related={this.props.reviews.related}

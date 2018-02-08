@@ -10,7 +10,7 @@ import crudActions from '../../../../../actions/crudActions'
 
 import Select, {Creatable} from 'react-select';
 import { FilterSidebar } from './FilterSidebar'
-import { ResourcesList } from '../../Layouts/ResourcesList'
+import { ReviewsSearchResults } from './ReviewsSearchResults'
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios'
 
@@ -26,7 +26,7 @@ let reviewsCrudActions = new crudActions('REVIEWS','reviews');
 export class ReviewsSearchPage extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = { isActiveNav: false, scrollTop: 0, value: '', suggestions: [], isLoading: false, mobileFilter: false, 'select_all': { value: true, id: 'all' }};
+		this.state = { isActiveNav: false, scrollTop: 0, value: '', suggestions: [], isLoading: false, mobileFilter: false, filter: 'reviews_category', 'select_all': { value: true, id: 'all' }};
 	}
 
 	componentWillMount(){
@@ -142,12 +142,39 @@ export class ReviewsSearchPage extends React.Component {
 	  </div>
 	);
 
+	filterFn = (filters) => {
+		console.log('FILTER FILTER', filters);
+		let url = 'reviews_category';
+		if(filters[0] !== 'all'){
+		    
+			for (let i=0; i<filters.length; ++i) {
+			    if (i == 0) {
+			        url += '?ids[]=' + filters[i];  
+			    } else {
+			        url += '&ids[]=' + filters[i];
+			    }
+			}
+		}
+
+		this.setState({ filter: url })
+
+		console.log('URL', url);
+
+		//if there isn't a search term
+		if(this.state.value){
+			this.props.dispatch(reviewsCrudActions.search(this.state.value, url))
+		}
+		else {
+			this.props.dispatch(reviewsCrudActions.filter(url))
+		}
+	}
+
 	render(){
 			const { value, suggestions, isLoading } = this.state;
 
 	    // Autosuggest will pass through all these props to the input.
 	const inputProps = {
-	  placeholder: 'Ex. Apps, Drugs, CGM, etc...',
+	  placeholder: 'Search for Diabetes Products and Services (Apps, Communities, etc.)',
 	  value,
 	  onChange: this.onChange
 	};
@@ -160,7 +187,7 @@ export class ReviewsSearchPage extends React.Component {
 				</div>
 				<div className={`side col-md-2 ${this.state.scrollTop >= 100 ? 'isActive' : ''}`}>
 					<div className="row">
-						<FilterSidebar isActive={this.state.mobileFilter} />
+						<FilterSidebar isActive={this.state.mobileFilter} searchValue={this.state.value} filterFn={this.filterFn} />
 					</div>
 				</div>
 				<SlideNavbarWrapper>
@@ -178,34 +205,32 @@ export class ReviewsSearchPage extends React.Component {
 								<div className="container-fluid">
 									<div className="row text-center">
 										<div className="col">
-											<h3 className="heading my-3 fw-600">
-												Find Diabetes Resources
-											</h3>
+											<h1 className="heading mb-3">Diabetes Discovery Platform</h1>
+											<h5 className="heading-sub mb-5">Providing Diabetes Content, Product and Services That Users Can Trust.</h5>
 											<form className="form form__search" onSubmit={(e)=>{e.preventDefault(); 
 												console.log('SEARCH WAS CLICKED',this.props.filter, this.state.value); 
-												this.props.dispatch(reviewsCrudActions.search(this.state.value));
+												this.props.dispatch(reviewsCrudActions.search(this.state.value, this.state.filter));
 											}}>	
 												<div className="reviews-search col-md-8 col-lg-8 mx-auto">
-														<Autosuggest
-															suggestions={suggestions}
-															onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-															onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-															getSuggestionValue={this.getSuggestionValue}
-															renderSuggestion={this.renderSuggestion}
-															inputProps={inputProps}
-														/>
-														<input type="submit" className="btn btn-primary" value="Search" />
+													<Autosuggest
+														suggestions={suggestions}
+														onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+														onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+														getSuggestionValue={this.getSuggestionValue}
+														renderSuggestion={this.renderSuggestion}
+														inputProps={inputProps}
+													/>
+													<input type="submit" className="btn btn-primary" value="Search" />
 												</div>
 											</form>
 										</div>
 									</div>
 								</div>
 							</div>
-							<ResourcesList 
-								title="Recent Reviews" 
-								type="reviews" 
+							<ReviewsSearchResults 
 								records={this.props.reviews.records && this.props.reviews.records.filter((item)=>{
 									if(item.status == 'published'){
+										//
 										return item;
 									}
 								})}
