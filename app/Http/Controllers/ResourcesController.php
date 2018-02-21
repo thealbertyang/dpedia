@@ -24,7 +24,7 @@ class ResourcesController extends ApiFormController
            // Apply the jwt.auth middleware to all methods in this controller
            // except for the authenticate method. We don't want to prevent
            // the user from retrieving their token if they don't already have it
-           $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'filter', 'related_resource', 'related_category_resources', 'similar_resources', 'search']]);
+           $this->middleware('jwt.auth', ['except' => ['authenticate', 'show', 'index', 'filter', 'related_resource', 'related_category_resources', 'similar_resources', 'search', 'related']]);
        }
 
     /**

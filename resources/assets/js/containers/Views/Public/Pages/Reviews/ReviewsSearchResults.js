@@ -65,11 +65,11 @@ export class ReviewsSearchResults extends React.Component {
 			let resources = this.withCategory(this.props.records, this.props.category_records);
 
 			return (
-				<div className="section">
+				<div className="section section-resources">
 					<div className={`${(this.props.container && this.props.container == 'regular') ? 'container' : 'container-fluid'}`}>
 						<div className="row text-center">
 							<div className="col">
-								<h2 className="heading">{this.props.header}</h2>
+								<h2 className="heading mb-md-0 mb-5">{this.props.header}</h2>
 							</div>
 						</div>
 						{this.props.title && <div className="row mb-4">
@@ -88,13 +88,13 @@ export class ReviewsSearchResults extends React.Component {
 														{reviews_category.title} <span className="heading-sub h6 highlight">({sortedRecords[reviews_category.slug].length})</span>
 													</h4>
 													<hr/>
-													<div className="row">
+													<div className="row mt-4">
 														{sortedRecords && Object.keys(sortedRecords).map((key,index)=>{
 															//console.log('SORTED RECORDS INDEX', key, reviews_category.slug, sortedRecords[key][index]);
 															if(key == reviews_category.slug && sortedRecords[key].length > 0){
 																return sortedRecords[key].map((item, index)=>{
 																	return (
-																		<div className="col-12 col-md-4 col-lg-3" key={index}>
+																		<div className="col-12 col-sm-6 col-md-4 col-xxl-3" key={index}>
 																			<ReviewCard layout="full" {...item} />
 																		</div>
 																	);

@@ -52,7 +52,7 @@ export class ResourcesList extends React.Component {
 					<div className={`${(this.props.container && this.props.container == 'regular') ? 'container' : 'container-fluid'}`}>
 						<div className="row text-center">
 							<div className="col">
-								<h2 className="heading">{this.props.header}</h2>
+								<h2 className="heading mb-md-0 mb-5">{this.props.header}</h2>
 							</div>
 						</div>
 						<div className="row">

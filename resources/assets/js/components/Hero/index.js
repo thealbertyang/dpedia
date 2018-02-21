@@ -108,15 +108,12 @@ export class Hero extends React.Component {
 												<b>{this.props.hero.title}</b>
 											</h6>
 											<div className="row">
-												<div className="col-6">
+												<div className="col-12">
 													<h4 className="description">"{this.props.hero.description}"</h4>
 													
 												</div>												
-												<div className="col-6">
-													<img src={backgroundUrl} className="full-width" />
-												</div>
 												<div className="col-12">
-													<a href={'/'+slug+'/'+this.props.hero.slug} className="btn btn-round btn-grey">{typeLabel}</a>
+													<a href={'/'+slug+'/'+this.props.hero.slug} className="btn btn-round btn-grey float-right">{typeLabel}</a>
 												</div>
 											</div>
 
@@ -333,6 +330,9 @@ export class Hero extends React.Component {
 						</div>
 					)
 				}
+			}
+			else {
+				return <div className="hero hero-loading section"></div>;
 			}
 		}
 		else {

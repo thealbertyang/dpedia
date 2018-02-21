@@ -40,7 +40,7 @@ export default class ReviewCard extends React.Component {
 
 		if(this.props.layout == 'split'){
 			return (
-				<div className="card card-review">
+				<div className="card card-review card-review-split">
 					<div className="card-body">
 						<div className='icon'>
 							<img src={`/${iconImg}`} className="icon__img"/>
@@ -53,11 +53,11 @@ export default class ReviewCard extends React.Component {
 						<h5 className="card-title"><a href={`/reviews/${this.props.slug}`}><b>{this.props.title}</b></a></h5>
 						<p className="card-text" dangerouslySetInnerHTML={{ __html: `${bodyText}` }}></p>
 
-						<div className="links row no-gutters full-width"> 
-							<div className="col-12 mb-2">
+						<div className="links row"> 
+							<div className="col-md-12 pr-1 pr-md-3 col-6 mb-2">
 								<a href={`/reviews/${this.props.slug}`} className="btn btn-primary btn-round btn-royal-blue btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> Full Review</a>
 							</div>
-							<div className="col-12">
+							<div className="col-md-12 pl-1 pl-md-3 col-6">
 								<a href={`${this.props.url}`} target="_blank" className="btn btn-primary btn-round btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> View {this.props.reviews_category && Pluralize.singular(this.props.reviews_category.title)}</a>
 							</div>
 						</div>
@@ -85,10 +85,10 @@ export default class ReviewCard extends React.Component {
 						</div>}
 
 						<div className="row">
-							<div className="col-6 pr-3">
+							<div className="col-6 pr-1 pr-xxl-3">
 								<a href={`/reviews/${this.props.slug}`} className="btn btn-primary btn-round btn-royal-blue btn-review"><i className="fa fa-file-text-o" aria-hidden="true"></i> Full Review</a>
 							</div>
-							<div className="col-6 pl-3">
+							<div className="col-6 pl-1 pr-xxl-3">
 								<a href={`${this.props.url}`} target="_blank" className="btn btn-primary btn-round btn-review">
 									<i className="fa fa-file-text-o" aria-hidden="true"></i> View {this.props.reviews_category && Pluralize.singular(categoryTitle)}</a>
 							</div>

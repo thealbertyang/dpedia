@@ -99,7 +99,7 @@ export class ReviewsRelated extends React.Component {
 									{this.props.related.related_shuffle.map((item, index)=>{
 										if(index + 1 <= 4){
 											return (
-												<div className='col-4'>
+												<div className='col-12 col-md-4'>
 													<ReviewCard {...item} layout='split'/>
 												</div>
 											)

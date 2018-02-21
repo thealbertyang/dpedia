@@ -39,17 +39,17 @@ export class ExpertsSinglePage extends React.Component {
 					<div className="section section-page-info bg-white">
 						<div className="container">
 							<div className="row">
-								<div className="col-2">
+								<div className="col-md-2 col-12">
 									<div className="avatar" style={{ background: 'url(/'+this.props.experts.data.avatar_img+') center center / cover' }}>
 									</div>
 									<h6 className="heading">{this.props.experts.data.first_name+' '+this.props.experts.data.last_name}, {this.props.experts.data.credentials}</h6>
 									<p>{this.props.experts.data.occupation} - {this.props.experts.data.city}, {this.props.experts.data.state}</p>
 								</div>
-								<div className="col-6">
+								<div className="col-md-6 col-12">
 									<h6 className="heading">About</h6>
 									<p>{this.props.experts.data.about}</p>
 								</div>
-								<div className="col-4"> 
+								<div className="col-md-4 col-12"> 
 									<h6 className="heading">Highlights</h6>
 									<p dangerouslySetInnerHTML={{ __html: `${this.props.experts.data.highlights}` }}></p>
 								</div>
@@ -61,7 +61,7 @@ export class ExpertsSinglePage extends React.Component {
 							<div className="row text-center">
 								<div className="col">
 									<h1 className="heading">Recent Content by Dr. S Alpert</h1>
-									<h6 className="heading-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h6>
+									<h6 className="heading-sub mt-5 mt-md-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h6>
 								</div>
 							</div>
 						</div>

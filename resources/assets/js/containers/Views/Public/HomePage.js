@@ -65,50 +65,75 @@ export class HomePage extends React.Component {
 					<div className="section py-0">
 						<div className="container-fluid">
 							<div className="row">
+								<div className="col-12 d-flex justify-content-center tester">
+									<img src={`/img/test-top.jpg`} className="tester-main"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="section py-0">
+						<div className="container-fluid">
+							<div className="row">
 								<div className="col-12">
 									<hr/>
 								</div>
 							</div>
 						</div>
 					</div>
-					<ResourcesList header="Read Articles by Diabetes Experts" title="Recent Articles" type="articles" records={this.props.articles.records && 
-						this.props.articles.records.filter((item)=>{
-							if(item.status == 'published'){
-								return item;
-							}
-						})} />
-					<ResourcesList header="Watch Videos by Diabetes Experts" title="Recent Videos" type="videos" records={this.props.videos.records && 
-						this.props.videos.records.filter((item)=>{
-							if(item.status == 'published'){
-								return item;
-							}
-						})} />
-					{/*this.props.reviews.records &&
-					<ResourcesList 
-						header="Read Reviews on Diabetes Resources"
-						title="Recent Reviews" 
-						type="reviews" 
-						records={this.props.reviews.records.filter((item)=>{
-							if(item.status == 'published'){
-								return item;
-							}
-						})}
-						category_records={this.props.reviews_categories.records}
-					/>
-					*/}
-					{this.props.reviews.records && this.props.reviews_categories.records &&
-					<ReviewsSearchResults 
-						header="Read Reviews on Diabetes Resources"
-						title="Recent Reviews"
-						records={this.props.reviews.records && this.props.reviews.records.filter((item)=>{
-							if(item.status == 'published'){
-								//
-								return item;
-							}
-						})}
-						category_records={this.props.reviews_categories.records}
-					/>
-					}
+					
+						<div className="container-fluid">
+							<div className="row no-gutters">
+								<div className="tester col-md-10 col-12 d-flex flex-column align-items-center">
+									<ResourcesList header="Read Articles by Diabetes Experts" title="Recent Articles" type="articles" records={this.props.articles.records && 
+										this.props.articles.records.filter((item)=>{
+											if(item.status == 'published'){
+												return item;
+											}
+										})} />
+									<img src={`/img/test-side-first.jpg`} className="tester-main-first" />
+
+									<ResourcesList header="Watch Videos by Diabetes Experts" title="Recent Videos" type="videos" records={this.props.videos.records && 
+										this.props.videos.records.filter((item)=>{
+											if(item.status == 'published'){
+												return item;
+											}
+										})} />
+									{/*this.props.reviews.records &&
+									<ResourcesList 
+										header="Read Reviews on Diabetes Resources"
+										title="Recent Reviews" 
+										type="reviews" 
+										records={this.props.reviews.records.filter((item)=>{
+											if(item.status == 'published'){
+												return item;
+											}
+										})}
+										category_records={this.props.reviews_categories.records}
+									/>
+									*/}
+
+									<img src={`/img/test-side-second.jpg`} className="tester-main-second" />
+
+									{this.props.reviews.records && this.props.reviews_categories.records &&
+									<ReviewsSearchResults 
+										header="Read Reviews on Diabetes Resources"
+										title="Recent Reviews"
+										records={this.props.reviews.records && this.props.reviews.records.filter((item)=>{
+											if(item.status == 'published'){
+												//
+												return item;
+											}
+										})}
+										category_records={this.props.reviews_categories.records}
+									/>
+									}
+								</div>
+								<div className="col-md-2 tester">
+									<img src={`/img/test-side-first.jpg`} className="full-width tester-side-first" />
+									<img src={`/img/test-side-second.jpg`} className="full-width tester-side-second" style={{ marginTop: '10rem' }} />
+								</div>
+							</div>
+						</div>
 
 			</div>
 				<Footer/>

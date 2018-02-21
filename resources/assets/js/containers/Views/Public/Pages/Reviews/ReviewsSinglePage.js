@@ -83,17 +83,17 @@ export class ReviewsSinglePage extends React.Component {
 					<div className="section section-page-info bg-white">
 						<div className="container">
 							<div className="row">
-								<div className="col-2">
+								<div className="col-md-2 col-12">
 									<div className="avatar" style={{ background: 'url(/'+this.props.reviews.data.expert.avatar_img+') center center / cover' }}>
 									</div>
 									<h6 className="heading">{this.props.reviews.data.expert.first_name+' '+this.props.reviews.data.expert.last_name}, {this.props.reviews.data.expert.credentials}</h6>
 									<p>{this.props.reviews.data.expert.occupation} - {this.props.reviews.data.expert.city}, {this.props.reviews.data.expert.state}</p>
 								</div>
-								<div className="col-6">
+								<div className="col-md-6 col-12">
 									<h6 className="heading">What our experts say</h6>
 									<p>Dr. S. Alpert is an ed. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 								</div>
-								<div className="information col-4">
+								<div className="information col-md-4 col-12">
 									<h6 className="heading">Top line information</h6>
 									<ul className="links">
 										{this.props.reviews.data.url && <li>
@@ -115,7 +115,7 @@ export class ReviewsSinglePage extends React.Component {
 					<div className="section">
 						<div className="container">
 							<div className="row">
-								<div className="col-8">
+								<div className="col-12 col-md-8">
 									<p>{this.props.reviews.data.description}</p>
 
 									<div className="tags pb-5">
@@ -126,14 +126,14 @@ export class ReviewsSinglePage extends React.Component {
 										})}
 									</div>
 									<div className="test-row">
-										<div className="test-ad">
-											<ReviewsRelated
-												type="related_single" 
-												data={this.props.reviews.data} 
-												related={this.props.reviews.related}
-											/>
-										</div>
 										<div className="test-content">
+											<div className="test-ad">
+												<ReviewsRelated
+													type="related_single" 
+													data={this.props.reviews.data} 
+													related={this.props.reviews.related}
+												/>
+											</div>
 											<p dangerouslySetInnerHTML={{ __html: `${this.props.reviews.data.body}` }}>
 											</p>
 										</div>

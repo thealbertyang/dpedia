@@ -45,13 +45,13 @@ export class ExpertsListPage extends React.Component {
 									<div className="row">
 										<div className="experts-panel col-12 bg-white">
 											<div className="row">
-												<div className="col-3 d-flex align-items-center flex-column">
+												<div className="col-md-3 col-12 d-flex align-items-center flex-column">
 													<div className="avatar " style={{ background: 'url('+expert.avatar_img+')'}}>
 													</div>
 													<h5 className='heading'>Dr. {expert.first_name+' '+expert.last_name+', '+expert.credentials}</h5>
 													<a href={'/experts/'+expert.user.username}>See Expert Profile</a>
 												</div>
-												<div className="col-9 d-flex flex-column justify-content-center">
+												<div className="col-md-9 col-12 d-flex flex-column justify-content-center">
 													<span className="heading">About</span>
 													<p className="mb-1">{expert.about}</p>
 													<a href={'/experts/'+expert.user.username} className="mb-4">See Expert Profile</a>

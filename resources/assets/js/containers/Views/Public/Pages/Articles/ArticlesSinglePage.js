@@ -82,7 +82,7 @@ export class ArticlesSinglePage extends React.Component {
 					<div className="section">
 						<div className="container">
 							<div className="row">
-								<div className="col-8">
+								<div className="col-12 col-md-8">
 									<h6 className="heading-sub">November 21, 2015</h6>
 									<h1 className="heading">{this.props.articles.data.title}</h1>
 									<div className="tags">
@@ -96,7 +96,7 @@ export class ArticlesSinglePage extends React.Component {
 									</div>
 									
 								</div>
-								<div className="col-4">
+								<div className="col-12 col-md-4">
 									
 									<ArticlesRelated
 										records={this.props.resources.related && this.props.resources.related.related_by_expert}

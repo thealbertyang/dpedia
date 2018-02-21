@@ -45,7 +45,7 @@ export class VideosSinglePage extends React.Component {
 					<div className="section">
 						<div className="container">
 							<div className="row">
-								<div className="col-8">
+								<div className="col-12 col-md-8 order-2 order-lg-1">
 									<h6 className="heading-sub">November 21, 2015</h6>
 									<h1 className="heading">{this.props.videos.data.title}</h1>
 
@@ -60,7 +60,7 @@ export class VideosSinglePage extends React.Component {
 									</div>
 									
 								</div>
-								<div className="col-4">
+								<div className="col-12 col-md-4 order-1 order-lg-2">
 									<div className="row">	
 										<div className="col-4">
 											<div className="avatar" style={{ background: 'url(/'+this.props.videos.data.expert.avatar_img+') center center / cover' }}>

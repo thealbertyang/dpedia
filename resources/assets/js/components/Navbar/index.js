@@ -68,17 +68,17 @@ export class Navbar extends React.Component {
         </a>
         <div className={`${this.state.isActive ? '' : 'collapse'} navbar-collapse`} id="navbarSupportedContent" ref={this.setWrapperRef}>
           <ul className="navbar-nav mr-auto">
-            <li><NavLink exact to="/curious-about" className="nav-link">Curious About Diabetes</NavLink></li>
-            <li><NavLink exact to="/living-with" className="nav-link">Living With Diabetes</NavLink></li>
-            <li><NavLink exact to="/preventive-care" className="nav-link">Preventive Care</NavLink></li>
-            <li><NavLink exact to="/alternative-care" className="nav-link">Alternative Care</NavLink></li>
-            <li><NavLink exact to="/experts" className="nav-link">Our Experts</NavLink></li>
+            <li><a href="/curious-about" className="nav-link">Curious About Diabetes</a></li>
+            <li><a href="/living-with" className="nav-link">Living With Diabetes</a></li>
+            <li><a href="/preventive-care" className="nav-link">Preventive Care</a></li>
+            <li><a href="/alternative-care" className="nav-link">Alternative Care</a></li>
+            <li><a href="/experts" className="nav-link">Our Experts</a></li>
           </ul>
           <ul className="navbar-nav mr-auto">
            
           </ul>
           <ul className="navbar-nav">
-             <li className="d-flex align-items-center"><NavLink exact to="/reviews" className="btn btn-primary btn-round btn-resource">Reviews</NavLink></li>
+             <li className="d-flex align-items-center"><a href="/reviews" className="btn btn-primary btn-round btn-resource">Reviews</a></li>
              <li style={{ marginLeft: '1rem' }}>
               <form className="form-group form-inline my-2">
                 <div className="search-group">

@@ -125,7 +125,8 @@ a {
     text-transform: uppercase;
     background-color: #475382;
     //border: 4px solid #4095ff;
-    border: 4px solid #3e486d;
+    //border: 4px solid #3e486d;
+	border: none !important;
     min-width: 300px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -139,7 +140,7 @@ a {
 
     &:hover, &:active, &:focus {
     	color: white;
-    	background-color: #36416e;
+    	background-color: #36416e !important;
     	border: 4px solid #3d5e88;
     }
 }
@@ -153,7 +154,7 @@ a {
 
 	    &:hover, &:active, &:focus {
 	    	color: white;
-	    	background-color: #36416e;
+	    	background-color: #3a859a !important;
 	    	border: 4px solid #56a1ff;
 	    }
 	}
@@ -284,6 +285,7 @@ h1 {
 	    		//color: $primary-font-color;
 	    		color: #21242f;
 	    		font-size: 14px;
+	    		border-right: none;
 
 	    		&.active {
 	    		 	border-left: 5px solid #7ba7db;
@@ -426,6 +428,9 @@ h1 {
 		    padding-left: 1rem !important;
 			border-right: 1px solid #dcdcdc;
 
+			@include media-breakpoint-down(xxl) {
+				font-size: 1rem;
+			}
 
 			&.active {
 				border-bottom: 5px solid #7ba7db;
@@ -524,6 +529,13 @@ h1 {
 		height: 100%;
 		padding: 5rem;
 
+		@include media-breakpoint-down(xs){
+			.title {
+				font-size: 2rem !important;
+				line-height: 3rem !important;
+			}
+		}
+
 		.btn {
 			padding: 0.6rem 2rem;
 		}
@@ -537,7 +549,7 @@ h1 {
 		.title {
 			color: #3a3a3a;
 			font-size: 4rem;
-			width: 35rem;
+			max-width: 35rem;
 			font-weight: 400;
 			line-height: 5rem;
 			margin-bottom: 2rem;
@@ -754,6 +766,15 @@ h1 {
 .hero-reviews {
 	height: 10rem; 
 
+	@include media-breakpoint-down(xs){
+		height: 20rem !important;
+
+		.col-12 {
+			margin-top: -1rem !important;
+		}
+
+	}
+
 	.heading {
 		@extend .text-white;
 		padding: 2rem 0 1rem;
@@ -798,6 +819,10 @@ h1 {
 	padding: 3rem;
 	display: block;
 
+	@include media-breakpoint-down(xs){
+		padding: 3rem 0rem;
+	}
+
 	&.pb-0 {
 		padding-bottom: 0 !important;
 	}
@@ -820,6 +845,10 @@ h1 {
 .section-main {
 	.heading {
 		font-size: 3rem;
+
+		@include media-breakpoint-down(xs){
+			font-size: 2rem;
+		}
 	}
 	.heading-sub {
 		font-size: 1.5rem;
@@ -838,7 +867,7 @@ h1 {
 	}
 }
 
-.section-resources, .page.search, .page.reviews {
+.section-resources, .section-resource-related, .page.search, .page.reviews {
 	.card {
 		.btn {
 			max-width: 100%;
@@ -850,6 +879,19 @@ h1 {
 		    max-height: 70px;
 		    overflow: hidden;
 		    font-size: 1.05rem;
+		}
+	}
+
+	.card-review-split {
+		.btn {
+			max-width: 100% !important;
+	    	min-width: 15rem !important;
+	    	width: 100% !important;
+
+	    	@include media-breakpoint-down(xs){
+	    		width: 15rem !important;
+	    		min-width: auto !important;
+	    	}
 		}
 	}
 }
@@ -1170,8 +1212,6 @@ h1 {
 	    height: 3.5rem;
 		border-top-right-radius: 15rem;
 	    border-bottom-right-radius: 15rem;
-	    padding-right: 2rem;
-    	padding-left: 2rem;
     	width:20%;
     	background-color: #475382;
 
@@ -1199,6 +1239,14 @@ h1 {
 			border-top-left-radius: 15rem;
 		    border-bottom-left-radius: 15rem;
    			width: 100%;
+
+   			@include media-breakpoint-down(xxl){
+   				font-size: 1.05rem;
+   			}
+
+   			@include media-breakpoint-down(xs){
+   				font-size: .85rem;
+			}
 
 			&::placeholder {
 				color: #3F4970;
@@ -1263,6 +1311,9 @@ h1 {
 		img {
 			width: 100%;
 		}		
+		.embed-responsive {
+			background-color: transparent;
+		}
 	}
 }
 
@@ -1293,6 +1344,23 @@ h1 {
 
 	.test-content {
 		color: #3f4970;
+
+		p {
+			margin-bottom: 2rem;
+		}
+
+		blockquote {
+			ul {
+		    	li {
+		    		left: 20px;
+    				position: relative;
+
+    				@include media-breakpoint-down(xs){
+    					left: 0px;
+    				}
+    			}
+			}
+		}
 	}
 
 	.test-ad {
@@ -1303,13 +1371,21 @@ h1 {
 	    @media (max-width: 992px){
 	    	width: 100%;
 	    }
+
+	    .card-review {
+	    	margin-bottom: 2rem !important;
+	    }
 	}
 }
 
 //Experts Page
 .experts {
 	.experts-panel {
-		@extend .py-4;
+		padding: 1.5rem;
+
+		@include media-breakpoint-down(xs){
+			padding: 5rem !important;
+		}
 	}
 	.highlights {
 		margin-bottom: 0px;
@@ -1545,7 +1621,8 @@ h1 {
     .button {
     	font-size: .85rem;
 	    text-transform: uppercase;
-	    border: 4px solid #ffab93;
+	    //border: 4px solid #ffab93;
+	    border: none !important;
 	    font-family: Montserrat;
 	    min-width: 300px;
 	    font-weight: 600;
@@ -1757,6 +1834,11 @@ h1 {
 
 	.btn-review {
 		border-radius: 3px;
+		padding: 0.6rem 0;
+
+		@include media-breakpoint-down(xxl) {
+			font-size: 0.8rem;
+		}
 	}
 }
 
@@ -1782,6 +1864,38 @@ font-family: 'Roboto', san-serif;
 
 	.tag-text {
 		background-color: transparent;
+	}
+}
+
+//ADS 
+.tester {
+	.tester-main {
+		@include media-breakpoint-down(xs){
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.tester-side-first {
+		@include media-breakpoint-down(xs){
+			display: none;
+		}
+	}
+	.tester-side-second {
+		@include media-breakpoint-down(xs){
+			display: none;
+		}
+	}
+	.tester-main-first {
+		display: none;
+		@include media-breakpoint-down(xs){
+			display: block;
+		}
+	}
+	.tester-main-second {
+		display: none;
+		@include media-breakpoint-down(xs){
+			display: block;
+		}
 	}
 }
 
